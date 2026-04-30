@@ -1,0 +1,26 @@
+# build output
+dist/
+.astro/
+
+# Airtable image cache — re-downloaded at build time from attachments
+public/assets/cms/
+
+# deps
+node_modules/
+
+# env
+.env
+.env.local
+.env.production
+
+# logs
+npm-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/
+.idea/

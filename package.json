@@ -1,0 +1,36 @@
+{
+  "name": "treehouse-yoga",
+  "type": "module",
+  "version": "0.3.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "prebuild:retreats": "node scripts/prefetch-retreat-images.mjs",
+    "build": "npm run prebuild:retreats && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "worker:dev": "wrangler dev",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "dependencies": {
+    "astro": "^6.1.9"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260101.0",
+    "wrangler": "^4.0.0"
+  },
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dulipz/treehouse-yoga.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dulipz/treehouse-yoga/issues"
+  },
+  "homepage": "https://github.com/dulipz/treehouse-yoga#readme"
+}

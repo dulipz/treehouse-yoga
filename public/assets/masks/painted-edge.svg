@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" preserveAspectRatio="none">
+  <!-- A white rectangle whose edges are displaced by turbulent noise.
+       Used as a CSS mask-image to give photos a painted / torn-paper edge.
+       Tweak baseFrequency for the "weave" of the brush, scale for how
+       deep the wobble bites into the image. -->
+  <defs>
+    <filter id="paint" x="-10%" y="-12%" width="120%" height="124%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="3" seed="7" />
+      <feDisplacementMap in="SourceGraphic" scale="55" />
+    </filter>
+  </defs>
+  <rect x="60" y="50" width="880" height="600" rx="14" fill="white" filter="url(#paint)" />
+</svg>
