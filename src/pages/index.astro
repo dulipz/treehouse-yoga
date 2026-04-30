@@ -1,0 +1,141 @@
+---
+import Base from '../layouts/Base.astro';
+import RetreatCard from '../components/RetreatCard.astro';
+import { getFeaturedRetreats } from '../data/retreats';
+
+const featured = await getFeaturedRetreats();
+---
+<Base
+  title="Tree House Yoga Retreat — Small-group yoga retreats in Hikkaduwa, Sri Lanka"
+  transparent={true}
+>
+  <!-- ===== Hero ===== -->
+  <section class="hero hero--immersive">
+    <img
+      class="hero-bg"
+      src="/assets/images_new/section_hero_images/main_hero.jpg"
+      alt="Yoga retreat villa in Sri Lanka surrounded by jungle"
+    />
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-card">
+        <span class="hero-eyebrow" data-i18n="hero.eyebrow">hikkaduwa, sri lanka · retreats in kleinen gruppen</span>
+        <h1 data-i18n="hero.title">Finde zurück zur Natur und zu dir selbst.</h1>
+        <p class="sub" data-i18n="hero.sub">
+          Exklusive Yoga-Retreats für kleine Gruppen. Acht Gäste, sieben Nächte,
+          eine Villa zwischen traumhaftem Strand und ruhigem Fluss.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/retreats.html" data-i18n="hero.cta.view">Retreats ansehen</a>
+          <button type="button" class="btn btn-ghost" data-reserve="r1" data-i18n="hero.cta.book">Jetzt buchen</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Concept ===== -->
+  <section class="section container">
+    <div class="section-head">
+      <span class="eyebrow" data-i18n="concept.eyebrow">die idee</span>
+      <h2 data-i18n="concept.title">Kleine, begleitete Retreats von Deutschland an die Südküste Sri Lankas.</h2>
+      <p data-i18n="concept.body">Wir halten unsere Gruppen klein — höchstens acht Gäste. Wir begleiten die ganze Woche, von Anfang bis Ende. Ihr kommt in Colombo an, wir holen euch am Flughafen ab, und drei Stunden später sitzt ihr auf der Veranda.</p>
+    </div>
+    <div class="concept-grid">
+      <div class="concept-item">
+        <span class="num">08—10</span>
+        <h4 data-i18n="concept.a.h">Eine kleine Gruppe, mit Absicht</h4>
+        <p data-i18n="concept.a.b">Nie mehr als zehn Gäste. Der Kochtopf reicht für so viele, die Yoga-Sala auch — und die Woche funktioniert genau deshalb.</p>
+      </div>
+      <div class="concept-item">
+        <span class="num">07</span>
+        <h4 data-i18n="concept.b.h">Sieben Nächte, eine Villa</h4>
+        <p data-i18n="concept.b.b">Ein Ort für das ganze Retreat. Ihr packt einmal aus. Ihr lernt, wie das Haus atmet.</p>
+      </div>
+      <div class="concept-item">
+        <span class="num">DE→LK</span>
+        <h4 data-i18n="concept.c.h">Deutsche Gastgeber, srilankische Familie</h4>
+        <p data-i18n="concept.c.b">Organisiert aus Berlin, gehalten in Hikkaduwa von einer Familie, die seit 2014 für Retreats kocht.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Why choose ===== -->
+  <section class="section section--sand">
+    <div class="container">
+      <div class="section-head left">
+        <span class="eyebrow" data-i18n="why.eyebrow">warum wir</span>
+        <h2 style="max-width:20ch" data-i18n="why.title">Die kleinen Dinge, sorgfältig gemacht.</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 014 13V5a2 2 0 012-2h7a7 7 0 010 14h-2v3"/><path d="M5 3l7 7"/></svg>
+          <div>
+            <h4 data-i18n="why.a.h">Ein echtes Sri Lanka</h4>
+            <p data-i18n="why.a.b">Unser Essen ist Reis und Curry, kein Resort-Buffet. Unsere Nachbarn sind die Fischer. Nichts ist gestellt.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          <div>
+            <h4 data-i18n="why.b.h">Klein und nah</h4>
+            <p data-i18n="why.b.b">Klein genug, dass man euch ab dem zweiten Morgen beim Namen kennt. Groß genug, damit ihr euch aufgehoben fühlt.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <svg viewBox="0 0 24 24"><path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 17c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 7c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg>
+          <div>
+            <h4 data-i18n="why.c.h">Zwischen traumhaftem Strand und ruhigem Fluss</h4>
+            <p data-i18n="why.c.b">Fünf Minuten zum Strand, zehn zum Riff, auf drei Seiten umgeben von Dschungel und Jasmin.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <svg viewBox="0 0 24 24"><path d="M17.8 19.8L16 15l4-7c.5-1-1-2.5-2-2L11 10 6 8.2a1 1 0 00-1 .3L2 12l5 2 3 3 2 5 3.5-3a1 1 0 00.3-1z"/></svg>
+          <div>
+            <h4 data-i18n="why.d.h">Alles organisiert</h4>
+            <p data-i18n="why.d.b">Flughafentransfer, Unterkunft, Essen, Yoga, all die kleinen Dinge. Ihr kommt an, ihr atmet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Featured retreats (driven by retreats data) ===== -->
+  <section class="section container">
+    <div class="section-head left featured-head">
+      <div>
+        <span class="eyebrow" data-i18n="featured.eyebrow">die retreats</span>
+        <h2 style="max-width:16ch" data-i18n="featured.title">Kleine Retreats, mit Bedacht geplant.</h2>
+      </div>
+      <a class="btn btn-tertiary" href="/retreats.html">
+        <span data-i18n="featured.all">Alle Retreats ansehen</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+      </a>
+    </div>
+    <div class="retreats-grid">
+      {featured.map((r) => <RetreatCard retreat={r} />)}
+    </div>
+  </section>
+
+  <!-- ===== Testimonial ===== -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="testi">
+        <span class="eyebrow" data-i18n="testi.eyebrow">in ihren worten</span>
+        <blockquote style="margin-top:20px" data-i18n="testi.quote">Die ersten vier Tage habe ich nur geschlafen. Am fünften habe ich wieder die Vögel gehört.</blockquote>
+        <div class="by">
+          <span data-i18n="testi.by">Anna K.</span>
+          <small data-i18n="testi.by.small">Hamburg · Retreat März 2026</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Closing CTA ===== -->
+  <section class="section section--compact container" style="text-align:center">
+    <span class="eyebrow" data-i18n="closing.eyebrow">november 2026 · 3 plätze frei</span>
+    <h2 style="max-width:18ch;margin:0 auto 36px;font-size:clamp(36px,5vw,60px);font-family:var(--font-display);font-weight:400;line-height:1.1;letter-spacing:-0.01em" data-i18n="closing.title">Eine ruhige Woche ist noch frei.</h2>
+    <button type="button" class="btn btn-primary" data-reserve="r1" data-i18n="closing.cta">Platz reservieren</button>
+  </section>
+</Base>

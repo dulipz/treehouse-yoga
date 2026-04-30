@@ -1,0 +1,47 @@
+---
+import Nav from '../components/Nav.astro';
+import MobileMenu from '../components/MobileMenu.astro';
+import Footer from '../components/Footer.astro';
+import Fab from '../components/Fab.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  /** Passed through to the Nav for the transparent-over-hero behaviour.
+   *  Set on every page that opens with a hero photo (homepage + inner pages). */
+  transparent?: boolean;
+  /** Highlights the active top-level page in the nav */
+  active?: 'retreats' | 'location' | 'how' | 'about' | 'contact' | 'gallery' | null;
+}
+
+const {
+  title,
+  description = 'Small, hosted yoga retreats in Hikkaduwa, Sri Lanka. Eight guests, seven nights, one villa between jungle and sea. Organised from Germany.',
+  transparent = false,
+  active = null,
+} = Astro.props;
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/assets/logo-mark.png" />
+    <link rel="stylesheet" href="/css/site.css?v=30" />
+  </head>
+  <body>
+    <Nav transparent={transparent} active={active} />
+    <MobileMenu />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <Fab />
+
+    <!-- Shared client scripts. The booking modal's DOM is injected by site.js. -->
+    <script src="/js/i18n.js?v=30" is:inline></script>
+    <script src="/js/site.js?v=30" is:inline></script>
+  </body>
+</html>

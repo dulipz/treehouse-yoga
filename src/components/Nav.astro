@@ -1,0 +1,37 @@
+---
+interface Props {
+  /** True on any page with a hero photo at the top — nav starts transparent
+   *  and switches to solid bone on scroll. Used by the homepage and the
+   *  five inner pages with hero images. */
+  transparent?: boolean;
+  /** Key of the currently active top-level page, used for the underline/bold state */
+  active?: 'retreats' | 'location' | 'how' | 'about' | 'contact' | 'gallery' | null;
+}
+const { transparent = false, active = null } = Astro.props;
+---
+<header class={`nav ${transparent ? 'nav--top' : 'nav--scrolled'}`} data-transparent={transparent ? 'true' : 'false'}>
+  <div class="nav-inner">
+    <a href="/" aria-label="Tree House Yoga Retreat — home">
+      <img src="/assets/logo-mark.png" class="logo-mark" alt="Tree House Yoga Retreat" />
+    </a>
+    <ul class="nav-links">
+      <li><a class={active === 'retreats' ? 'active' : ''} href="/retreats.html" data-i18n="nav.retreats">Retreats</a></li>
+      <li><a class={active === 'location' ? 'active' : ''} href="/location.html" data-i18n="nav.location">Ort</a></li>
+      <li><a class={active === 'how' ? 'active' : ''} href="/how.html" data-i18n="nav.how">So läuft es ab</a></li>
+      <li><a class={active === 'gallery' ? 'active' : ''} href="/galerie.html" data-i18n="nav.gallery">Galerie</a></li>
+      <li><a class={active === 'about' ? 'active' : ''} href="/about.html" data-i18n="nav.about">Über uns</a></li>
+      <li><a class={active === 'contact' ? 'active' : ''} href="/contact.html" data-i18n="nav.contact">Kontakt</a></li>
+    </ul>
+    <div class="nav-cta-wrap">
+      <div class="lang-toggle" role="group" aria-label="language">
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        <span class="lang-sep" aria-hidden="true">/</span>
+        <button type="button" data-lang="de" class="active" aria-pressed="true">DE</button>
+      </div>
+      <button type="button" class="nav-cta" data-reserve="r1" data-i18n="nav.book">Jetzt buchen</button>
+    </div>
+    <button class="nav-mobile" data-menu-open data-i18n-aria="nav.menu" aria-label="Menü">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+    </button>
+  </div>
+</header>

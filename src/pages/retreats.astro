@@ -1,0 +1,127 @@
+---
+import Base from '../layouts/Base.astro';
+import RetreatCard from '../components/RetreatCard.astro';
+import { getVisibleRetreats } from '../data/retreats';
+
+const all = await getVisibleRetreats();
+
+// ---- Derive filter chip values from the retreat data ------------------
+
+const MONTHS_DE = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
+const MONTHS_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+const TAG_LABELS: Record<string, { de: string; en: string }> = {
+  beginner:  { de: 'Einsteiger',    en: 'Beginner' },
+  returning: { de: 'Wiederkehrend', en: 'Returning' },
+  silent:    { de: 'Stille',        en: 'Silent' },
+  deepening: { de: 'Vertiefung',    en: 'Deepening' },
+  family:    { de: 'Familie',       en: 'Family' },
+};
+
+// Unique months across all retreats, sorted chronologically.
+const monthChips: { value: string; de: string; en: string }[] = [];
+const monthsSeen = new Set<string>();
+for (const r of all) {
+  if (!r.startDate) continue;
+  const ym = r.startDate.slice(0, 7);
+  if (monthsSeen.has(ym)) continue;
+  monthsSeen.add(ym);
+  const [yStr, mStr] = ym.split('-');
+  const y = Number(yStr);
+  const m = Number(mStr) - 1;
+  monthChips.push({
+    value: ym,
+    de: `${MONTHS_DE[m]} ${y}`,
+    en: `${MONTHS_EN[m]} ${y}`,
+  });
+}
+monthChips.sort((a, b) => a.value.localeCompare(b.value));
+
+// Unique tags across all retreats, in the order they first appear.
+const tagChips: { value: string; de: string; en: string }[] = [];
+const tagsSeen = new Set<string>();
+for (const r of all) {
+  for (const t of r.tags) {
+    if (tagsSeen.has(t)) continue;
+    tagsSeen.add(t);
+    const labels = TAG_LABELS[t] ?? { de: t, en: t };
+    tagChips.push({ value: t, de: labels.de, en: labels.en });
+  }
+}
+
+// Only show the availability filter when at least one retreat is sold out.
+// Otherwise the toggle is meaningless (everything would always pass).
+const showAvailabilityFilter = all.some((r) => r.soldOut);
+---
+<Base
+  title="Retreats — Tree House Yoga Retreat"
+  description="Our small-group yoga retreats in Hikkaduwa, Sri Lanka. Two a year, kept quiet."
+  active="retreats"
+  transparent={true}
+>
+  <section class="hero hero--page">
+    <img class="hero-bg" src="/assets/images_new/section_hero_images/retreats.jpg" alt="Yoga retreat villa in Hikkaduwa" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-card">
+        <span class="hero-eyebrow" data-i18n="retreats.eyebrow">die retreats</span>
+        <h1 data-i18n="retreats.title">Kleine Retreats. Ruhig gehalten.</h1>
+        <p class="sub" data-i18n="retreats.body">Wir machen einige Retreats im Jahr und halten sie klein. Alle in derselben Villa, dieselbe Familie kocht.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="retreats-filters" data-retreats-filters>
+      {monthChips.length > 0 && (
+        <div class="filter-group">
+          <span class="filter-label" data-i18n="filter.month">Monat</span>
+          <button type="button" class="chip is-active" data-filter-group="month" data-filter-value="" data-i18n="filter.all">Alle</button>
+          {monthChips.map((m) => (
+            <button
+              type="button"
+              class="chip"
+              data-filter-group="month"
+              data-filter-value={m.value}
+              data-i18n-de={m.de}
+              data-i18n-en={m.en}
+            >{m.de}</button>
+          ))}
+        </div>
+      )}
+
+      {tagChips.length > 0 && (
+        <div class="filter-group">
+          <span class="filter-label" data-i18n="filter.type">Art</span>
+          <button type="button" class="chip is-active" data-filter-group="tag" data-filter-value="" data-i18n="filter.all">Alle</button>
+          {tagChips.map((t) => (
+            <button
+              type="button"
+              class="chip"
+              data-filter-group="tag"
+              data-filter-value={t.value}
+              data-i18n-de={t.de}
+              data-i18n-en={t.en}
+            >{t.de}</button>
+          ))}
+        </div>
+      )}
+
+      {showAvailabilityFilter && (
+        <div class="filter-group">
+          <span class="filter-label" data-i18n="filter.avail">Verfügbarkeit</span>
+          <button type="button" class="chip" data-filter-toggle="hide-soldout" data-i18n="filter.openOnly">Nur freie Plätze</button>
+        </div>
+      )}
+    </div>
+
+    <div class="retreats-grid" data-retreats-grid>
+      {all.map((r) => <RetreatCard retreat={r} />)}
+    </div>
+
+    <div class="retreats-empty" data-retreats-empty hidden>
+      <p data-i18n="filter.empty">Keine Retreats passen zu deiner Auswahl.</p>
+      <button type="button" class="btn btn-tertiary" data-retreats-clear data-i18n="filter.clear">Filter zurücksetzen</button>
+    </div>
+  </section>
+</Base>

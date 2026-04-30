@@ -1,0 +1,119 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getRetreats, type Retreat } from '../../data/retreats';
+
+export async function getStaticPaths() {
+  const retreats = await getRetreats();
+  return retreats
+    .filter((r) => r.status !== 'draft')
+    .map((retreat) => ({ params: { slug: retreat.slug }, props: { retreat } }));
+}
+
+interface Props { retreat: Retreat }
+const { retreat } = Astro.props;
+---
+<Base
+  title={`${retreat.title.en} — Tree House Yoga Retreat`}
+  description={retreat.subtitle.en}
+  active="retreats"
+>
+  <div class="detail-hero" style={`background-image:url('${retreat.heroImage}')`}>
+    <div class="container">
+      <span class="eyebrow dh-eyebrow">
+        <span
+          data-i18n-de={retreat.prefix.de}
+          data-i18n-en={retreat.prefix.en}
+        >{retreat.prefix.de}</span>
+        {' · '}
+        <span
+          data-i18n-de={retreat.dates.de}
+          data-i18n-en={retreat.dates.en}
+        >{retreat.dates.de}</span>
+      </span>
+      <h1
+        data-i18n-de={retreat.subtitle.de}
+        data-i18n-en={retreat.subtitle.en}
+      >{retreat.subtitle.de}</h1>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="detail-grid">
+      <div class="detail-body">
+        <p
+          class="lede"
+          data-i18n-de={retreat.lede.de}
+          data-i18n-en={retreat.lede.en}
+        >{retreat.lede.de}</p>
+
+        <h3 data-i18n="detail.rhythm.h">Ein Tagesrhythmus</h3>
+        <p style="max-width:56ch" data-i18n="detail.rhythm.b">Zwei Praxen pro Tag — eine längere, wach machende Asana vor dem Frühstück und eine sanfte Restorative vor dem Abendessen. Die Mitte des Tages gehört euch: das Meer, die Hängematte, ein Buch, das Dorf.</p>
+
+        <div class="itin">
+          {retreat.itinerary.map((d) => (
+            <div class="itin-row">
+              <span class="day" data-i18n-de={d.day.de} data-i18n-en={d.day.en}>{d.day.de}</span>
+              <div>
+                <h5 data-i18n-de={d.title.de} data-i18n-en={d.title.en}>{d.title.de}</h5>
+                <p data-i18n-de={d.body.de} data-i18n-en={d.body.en}>{d.body.de}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <h3 data-i18n="detail.incH">Was ist dabei</h3>
+        <div class="inc-grid">
+          <div>
+            <h4 data-i18n="detail.inc">enthalten</h4>
+            <ul>
+              {retreat.inclusions.map((item) => (
+                <li>
+                  <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+                  <span data-i18n-de={item.de} data-i18n-en={item.en}>{item.de}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="out">
+            <h4 data-i18n="detail.notInc">nicht enthalten</h4>
+            <ul>
+              {retreat.exclusions.map((item) => (
+                <li>
+                  <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  <span data-i18n-de={item.de} data-i18n-en={item.en}>{item.de}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <aside>
+        <div class="booking-card">
+          <span class="eyebrow" data-i18n="detail.from">ab</span>
+          <div class="price">{retreat.price} <small data-i18n="detail.per">pro Gast</small></div>
+          <div class="dates">
+            <div class="dates-row">
+              <span data-i18n="detail.dates">Termin</span>
+              <span data-i18n-de={retreat.dates.de} data-i18n-en={retreat.dates.en}>{retreat.dates.de}</span>
+            </div>
+            <div class="dates-row">
+              <span data-i18n="detail.group">Gruppe</span>
+              <span>{retreat.guests} <span data-i18n="r.guests">Gäste</span></span>
+            </div>
+            <div class="dates-row">
+              <span data-i18n="detail.deposit">Anzahlung</span>
+              <span>{retreat.deposit}</span>
+            </div>
+            <div class="dates-row">
+              <span data-i18n="detail.remaining">Restbetrag</span>
+              <span data-i18n-de={retreat.remainingDue.de} data-i18n-en={retreat.remainingDue.en}>{retreat.remainingDue.de}</span>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" data-reserve={retreat.code} data-i18n="detail.reserve">Platz reservieren</button>
+          <div class="foot" data-i18n="detail.footnote">Heute wird keine Karte belastet · sicher bezahlen</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Base>

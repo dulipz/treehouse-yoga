@@ -1,0 +1,24 @@
+---
+// Shared off-canvas mobile menu. Toggled by site.js via [data-menu-open] / [data-menu-close].
+---
+<div class="mobile-menu" role="dialog" aria-modal="true">
+  <div class="mobile-menu-top">
+    <img src="/assets/logo-mark.png" alt="Tree House Yoga Retreat" />
+    <button class="nav-mobile" data-menu-close aria-label="Close">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <ul>
+    <li><a href="/retreats.html" data-i18n="nav.retreats">Retreats</a></li>
+    <li><a href="/location.html" data-i18n="nav.location">Ort</a></li>
+    <li><a href="/how.html" data-i18n="nav.how">So läuft es ab</a></li>
+    <li><a href="/galerie.html" data-i18n="nav.gallery">Galerie</a></li>
+    <li><a href="/about.html" data-i18n="nav.about">Über uns</a></li>
+    <li><a href="/contact.html" data-i18n="nav.contact">Kontakt</a></li>
+  </ul>
+  <div class="lang-toggle" role="group" aria-label="language">
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    <span class="lang-sep" aria-hidden="true">/</span>
+    <button type="button" data-lang="de" class="active" aria-pressed="true">DE</button>
+  </div>
+</div>

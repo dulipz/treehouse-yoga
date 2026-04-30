@@ -1,0 +1,32 @@
+# Cloudflare Workers config — Worker + static assets in one deploy.
+# Cloudflare reads this file when running `npx wrangler deploy`.
+
+name = "treehouse-yoga"
+main = "./worker/index.ts"
+compatibility_date = "2026-04-24"
+compatibility_flags = ["global_fetch_strictly_public"]
+
+# Public (non-secret) config. Change these here and re-deploy.
+# Secrets are set via wrangler:
+#   npx wrangler secret put AIRTABLE_TOKEN
+#   npx wrangler secret put RESEND_API_KEY
+#   npx wrangler secret put STRIPE_SECRET_KEY      # sk_test_... in test mode
+#   npx wrangler secret put STRIPE_WEBHOOK_SECRET  # whsec_... from dashboard webhook config
+[vars]
+AIRTABLE_BASE_ID = "appIFPQ3y33OFocaO"
+AIRTABLE_TABLE_NAME = "Bookings"
+AIRTABLE_CONTACTS_TABLE = "Contacts"
+MAIL_FROM = "Tree House Yoga <bookings@treehouse-yoga.de>"
+MAIL_OWNER = "bookings@treehouse-yoga.de"
+SITE_URL = "https://treehouse-yoga.dulipz.workers.dev"
+# Stripe — deposit amount in the smallest currency unit (cents).
+# 10000 = €100.00, 25000 = €250.00, etc. For the test setup keep this small.
+STRIPE_DEPOSIT_CENTS = "10000"
+STRIPE_CURRENCY = "eur"
+
+# Static site output from `npm run build`. The Worker falls through to
+# ASSETS.fetch() for any path that isn't /api/*.
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "404-page"
