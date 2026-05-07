@@ -8,10 +8,13 @@
 
 /* ---- Design tokens ---- */
 :root {
-  /* palette */
-  --bone: #faf7f1;
-  --sand-light: #f1ead9;
-  --sand: #e4dabd;
+  /* palette — three-tone green system (no cream/beige) */
+  /* Light off-white with a subtle green undertone — default page background */
+  --bone: #f2f6f2;
+  /* Mid-pale sage — used for "sand" alternating section backgrounds */
+  --sand-light: #dce5db;
+  /* Full sage — used for accents (map-wrap, gallery placeholders, badges) */
+  --sand: #b0bfaf;
 
   --forest-400: #a9bfa0;
   --forest-600: #4a6b3e;
@@ -25,8 +28,8 @@
   --fg: #1a2420;
   --fg-muted: #5a6961;
   --fg-subtle: #8a978e;
-  --fg-on-dark: #faf7f1;
-  --fg-on-dark-muted: rgba(250, 247, 241, 0.72);
+  --fg-on-dark: #f2f6f2;
+  --fg-on-dark-muted: rgba(242, 246, 242, 0.72);
 
   /* borders */
   --border: rgba(26, 36, 32, 0.14);
@@ -68,7 +71,10 @@ img { display: block; max-width: 100%; }
 button { font-family: inherit; }
 
 /* ---- Layout ---- */
-.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+/* Side padding ramps up with viewport: 28px on phones (was 24 — felt tight),
+   40px on desktop. Keeps text comfortably away from the screen edge. */
+.container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+@media (min-width: 760px) { .container { padding: 0 32px; } }
 @media (min-width: 900px) { .container { padding: 0 40px; } }
 
 /* ---- Nav ---- */
@@ -77,7 +83,7 @@ button { font-family: inherit; }
 @media (min-width: 900px) { .nav-inner { padding: 4px 40px; } }
 .nav--top { background: transparent; color: var(--bone); }
 .nav--top .logo-mark { filter: brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0,0,0,0.4)); opacity: 0.96; }
-.nav--scrolled { background: rgba(250, 247, 241, 0.78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); color: var(--fg); }
+.nav--scrolled { background: #ffffff; border-bottom: 1px solid var(--border); color: var(--fg); }
 .nav .logo-mark { height: 140px; width: auto; transition: filter var(--dur-hover) var(--ease), height var(--dur-hover) var(--ease); cursor: pointer; display: block; }
 @media (min-width: 900px) { .nav .logo-mark { height: 176px; } }
 .nav-links { display: none; list-style: none; margin: 0; padding: 0; gap: 30px; align-items: center; }
@@ -521,8 +527,8 @@ button { font-family: inherit; }
 .inc-grid .out li svg { stroke: var(--fg-subtle); }
 
 .itin { border-top: 1px solid var(--border); margin-top: 20px; }
-.itin-row { display: grid; grid-template-columns: 90px 1fr; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--border); }
-.itin-row .day { font-family: var(--font-display); font-size: 26px; color: var(--forest-600); font-variant-numeric: tabular-nums; }
+.itin-row { display: grid; grid-template-columns: 100px 1fr; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--border); }
+.itin-row .day { font-family: var(--font-display); font-size: 26px; color: var(--forest-600); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .itin-row h5 { font-family: var(--font-display); font-weight: 500; font-size: 20px; margin: 0 0 8px; }
 .itin-row p { font-size: 14px; color: var(--fg-muted); margin: 0; }
 
@@ -530,6 +536,9 @@ button { font-family: inherit; }
 .booking-card .price { font-family: var(--font-display); font-size: 42px; color: var(--fg); line-height: 1; font-variant-numeric: tabular-nums; }
 .booking-card .price small { font-family: var(--font-body); font-size: 12px; letter-spacing: 0.14em; text-transform: lowercase; color: var(--fg-muted); margin-left: 6px; }
 .booking-card .dates { margin: 24px 0 20px; padding: 16px 0; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
+/* When no price block sits above, .dates is the first child of .booking-card —
+   suppress the orphan top border so it doesn't look like a stray divider. */
+.booking-card .dates:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
 .booking-card .dates-row { display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; font-variant-numeric: tabular-nums; }
 .booking-card .dates-row span:first-child { color: var(--fg-muted); }
 .booking-card .btn { width: 100%; justify-content: center; margin-top: 8px; }
@@ -612,8 +621,15 @@ button { font-family: inherit; }
 
 /* ---- How-it-works ---- */
 .steps { display: grid; grid-template-columns: 1fr; gap: 0; }
-.step { display: grid; grid-template-columns: 80px 1fr; gap: 32px; padding: 36px 0; border-top: 1px solid var(--border); }
-@media (min-width: 760px) { .step { grid-template-columns: 120px 1fr 1fr; gap: 48px; } }
+/* Two-column grid: number on the left, content on the right.
+   The third child (.extra) spans both columns and sits under the description,
+   indented to line up with the description above it. */
+.step { display: grid; grid-template-columns: 80px 1fr; gap: 16px 28px; padding: 36px 0; border-top: 1px solid var(--border); }
+.step .extra { grid-column: 1 / -1; padding-left: 108px; margin-top: 8px; }
+@media (min-width: 760px) {
+  .step { grid-template-columns: 120px 1fr; gap: 18px 48px; }
+  .step .extra { padding-left: 168px; margin-top: 12px; }
+}
 .step:last-child { border-bottom: 1px solid var(--border); }
 .step .n { font-family: var(--font-display); font-size: 48px; color: var(--forest-600); font-variant-numeric: tabular-nums; line-height: 1; font-weight: 400; }
 .step h3 { font-family: var(--font-display); font-weight: 500; font-size: 26px; letter-spacing: -0.005em; margin: 6px 0 8px; }
@@ -638,7 +654,7 @@ button { font-family: inherit; }
 .contact-meta svg { color: var(--forest-600); margin-bottom: 10px; width: 20px; height: 20px; stroke: var(--forest-600); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ---- About ---- */
-.about-figure { aspect-ratio: 3/2; background-image: url('../assets/retreat-group-1.jpg'); background-size: cover; background-position: left center; background-repeat: no-repeat; border-radius: 14px; box-shadow: 0 10px 30px rgba(28,46,33,0.12); }
+.about-figure { aspect-ratio: 3/2; background-image: url('../assets/new_retreat_images/yoga_retreat_001.jpg'); background-size: cover; background-position: left center; background-repeat: no-repeat; border-radius: 14px; box-shadow: 0 10px 30px rgba(28,46,33,0.12); }
 
 /* Bio block — image + prose, side-by-side on desktop, stacked on mobile.
    Variant .bio-block--rev flips columns so image sits on the right. */
@@ -921,4 +937,145 @@ main { display: block; }
   /* Closing CTA on the homepage keeps its central alignment naturally —
      no rule needed here, but the helper span inside it benefits from block
      display to avoid the em-dash prefix wrapping awkwardly. */
+}
+
+/* ─── Booking modal — group inquiry CTA below room dropdown ──────────── */
+.form-group-cta { font-size: 12px; color: var(--fg-muted); margin: -4px 0 8px; line-height: 1.5; }
+.form-group-cta a { color: var(--forest-600); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.form-group-cta a:hover { color: var(--forest-800); }
+.form-hint { display: block; font-size: 12px; color: var(--fg-muted); margin-top: 6px; line-height: 1.5; }
+
+/* ─── FAQ page ───────────────────────────────────────────────────────────
+   Plain Q/A list — each item has a heading and a paragraph,
+   separated by a soft divider for readability. */
+.faq-page { padding-top: 96px; }
+.faq-list { max-width: 760px; margin: 32px 0 0; display: flex; flex-direction: column; }
+.faq-item { padding: 28px 0; border-top: 1px solid var(--border-soft); }
+.faq-item:last-child { border-bottom: 1px solid var(--border-soft); }
+.faq-item h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.3;
+  margin: 0 0 10px;
+  color: var(--fg);
+}
+.faq-item p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--fg-muted);
+  margin: 0;
+}
+
+/* ─── Contact page — reservation intro ─────────────────────────────────── */
+.reserve-info { max-width: 720px; margin: 32px 0 0; padding: 28px 32px; background: var(--sand-light); border-radius: 14px; }
+.reserve-info h3 { font-family: var(--font-display); font-weight: 500; font-size: 18px; line-height: 1.35; margin: 0 0 16px; }
+.reserve-list { list-style: none; padding: 0; margin: 0 0 20px; display: flex; flex-direction: column; gap: 8px; }
+.reserve-list li { padding-left: 20px; position: relative; font-size: 15px; color: var(--fg-muted); line-height: 1.5; }
+.reserve-list li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 8px; height: 1px; background: var(--forest-600); }
+.reserve-note { font-size: 14px; color: var(--fg-muted); line-height: 1.6; margin: 0; }
+
+/* ─── Room categories (location page) ───────────────────────────────────
+   Card grid: one room per card. Two columns on desktop, one on mobile.
+   Designed to work without photos for now — image placeholders may be added
+   later (see briefing: "Bilder pro Zimmer ergänzen!"). */
+.room-grid { display: grid; grid-template-columns: 1fr; gap: 32px; margin-top: 56px; }
+@media (min-width: 760px) { .room-grid { grid-template-columns: 1fr 1fr; gap: 40px; } }
+.room-card {
+  background: var(--sand-light);
+  border-radius: 14px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 4px 16px rgba(28, 46, 33, 0.06);
+}
+.room-card .room-head { display: flex; flex-direction: column; gap: 6px; }
+.room-card h3.room-name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+.room-card .room-where {
+  font-size: 14px;
+  color: var(--fg-muted);
+  margin: 0;
+  font-style: italic;
+}
+.room-card .room-specs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 15px;
+  color: var(--fg-muted);
+  line-height: 1.5;
+}
+.room-card .room-specs li {
+  padding-left: 16px;
+  position: relative;
+}
+.room-card .room-specs li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--forest-600);
+}
+.room-card .room-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  margin: 0;
+}
+.room-card .room-prices {
+  border-top: 1px solid rgba(28, 46, 33, 0.12);
+  padding-top: 16px;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.room-card .price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  font-size: 15px;
+}
+.room-card .price-row .price-label { color: var(--fg-muted); }
+.room-card .price-row .price-amount {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--forest-800);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+.room-treehouse-note {
+  margin-top: 32px;
+  padding: 22px 28px;
+  background: var(--forest-800);
+  color: var(--fg-on-dark);
+  border-radius: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+}
+.room-treehouse-note strong { font-weight: 500; }
+.room-treehouse-note .price-amount {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+  color: var(--bone);
 }

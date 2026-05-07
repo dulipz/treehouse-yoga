@@ -22,11 +22,13 @@ const filterSoldOut = retreat.soldOut ? 'true' : 'false';
   data-soldout={filterSoldOut}
 >
   <div class="r-img">
-    <span
-      class="r-badge"
-      data-i18n-de={retreat.spots.de}
-      data-i18n-en={retreat.spots.en}
-    >{retreat.spots.de}</span>
+    {retreat.spots.de && (
+      <span
+        class="r-badge"
+        data-i18n-de={retreat.spots.de}
+        data-i18n-en={retreat.spots.en}
+      >{retreat.spots.de}</span>
+    )}
     <img src={retreat.cardImage} alt="" />
   </div>
 
@@ -69,11 +71,13 @@ const filterSoldOut = retreat.soldOut ? 'true' : 'false';
     </div>
 
     <div class="r-aside">
-      <div class="r-price">
-        <small class="r-from" data-i18n="r.from">ab</small>
-        <span class="r-amount">{retreat.price}</span>
-        <small class="r-per" data-i18n="r.perPerson">pro Person</small>
-      </div>
+      {retreat.price && (
+        <div class="r-price">
+          <small class="r-from" data-i18n="r.from">ab</small>
+          <span class="r-amount">{retreat.price}</span>
+          <small class="r-per" data-i18n="r.perPerson">pro Person</small>
+        </div>
+      )}
       <span class="r-cta" data-i18n="r.more">Mehr erfahren →</span>
     </div>
   </div>

@@ -80,12 +80,18 @@ export interface Retreat {
 // ---- Shared content (not yet in Airtable) -------------------------------
 
 const sharedInclusions: Bilingual[] = [
-  { de: 'Sieben Nächte in einer geteilten Villa-Suite', en: 'Seven nights in a shared villa suite' },
-  { de: 'Zwei Yoga-Einheiten täglich', en: 'Two daily yoga sessions' },
-  { de: 'Pranayama- & Meditations-Workshops', en: 'Pranayama & meditation workshops' },
-  { de: 'Alle Mahlzeiten, srilankisch & vegetarisch', en: 'All meals, Sri Lankan & vegetarian' },
-  { de: 'Flughafentransfer (CMB)', en: 'Airport transfer (CMB)' },
-  { de: 'Ein Tagesausflug (Galle & Riff)', en: 'One day trip (Galle & reef)' },
+  { de: 'Unterkunft in der Villa für die gesamte Dauer des Retreats', en: 'Accommodation in the villa for the full retreat' },
+  { de: 'Flughafentransfer für An- und Abreise', en: 'Airport transfer for arrival and departure' },
+  { de: 'Täglich frisch zubereitete Mahlzeiten — Frühstück, Mittagssnack, Abendessen', en: 'Freshly prepared meals every day — breakfast, midday snack, dinner' },
+  { de: 'Wasser, Tee und Kaffee jederzeit', en: 'Water, tea and coffee any time' },
+  { de: 'Hochwertige singhalesische Küche — täglich frisch und lokal zubereitet', en: 'High-quality Sinhalese cooking — fresh and local every day' },
+  { de: 'Täglich zwei Yoga-Einheiten', en: 'Two yoga sessions every day' },
+  { de: 'Zwei zusätzliche Einheiten zu Stressreduktion, Atemtechnik und Meditation', en: 'Two additional sessions on stress reduction, breath work and meditation' },
+  { de: 'Drei organisierte Tagesausflüge zu besonderen Orten', en: 'Three organised day trips to special places' },
+  { de: 'Yoga-Equipment — Matten aus lokaler Produktion, Blöcke und Bolster', en: 'Yoga equipment — locally made mats, blocks and bolsters' },
+  { de: 'Handtücher, Strandtücher und Bettwäsche', en: 'Towels, beach towels and bed linen' },
+  { de: 'Persönliche Betreuung während des gesamten Retreats', en: 'Personal hosting throughout the retreat' },
+  { de: 'Komplett organisierter Ablauf vor Ort — du musst dich um nichts kümmern', en: 'Fully organised on-site — you handle nothing' },
 ];
 
 const sharedExclusions: Bilingual[] = [
@@ -93,7 +99,7 @@ const sharedExclusions: Bilingual[] = [
   { de: 'Reiseversicherung', en: 'Travel insurance' },
   { de: 'Visum (ETA, unkompliziert online)', en: 'Visa (ETA, straightforward online)' },
   { de: 'Alkoholische Getränke', en: 'Alcoholic drinks' },
-  { de: 'Einzelzimmer-Aufpreis', en: 'Private room upgrade' },
+  { de: 'Zubuchbare Extras (Einzelstunden, Massagen, Ayurveda, Kochkurse)', en: 'Optional add-ons (one-on-one sessions, massages, ayurveda, cooking classes)' },
 ];
 
 // ---- Airtable fetch ------------------------------------------------------
@@ -273,7 +279,7 @@ async function loadFromAirtable(): Promise<Retreat[]> {
     const cardAtt = (f['Card Image'] as AirtableAttachment[] | undefined)?.[0];
     const heroAtt = (f['Hero Image'] as AirtableAttachment[] | undefined)?.[0];
 
-    const cardImage = await ensureLocalImage(cardAtt, slug, 'card', '/assets/retreat-group-5.jpg');
+    const cardImage = await ensureLocalImage(cardAtt, slug, 'card', '/assets/new_retreat_images/yoga_retreat_001.jpg');
     const heroImage = await ensureLocalImage(heroAtt, slug, 'hero', '/assets/hero-main.png');
 
     out.push({

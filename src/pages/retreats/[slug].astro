@@ -90,8 +90,12 @@ const { retreat } = Astro.props;
 
       <aside>
         <div class="booking-card">
-          <span class="eyebrow" data-i18n="detail.from">ab</span>
-          <div class="price">{retreat.price} <small data-i18n="detail.per">pro Gast</small></div>
+          {retreat.price && (
+            <>
+              <span class="eyebrow" data-i18n="detail.from">ab</span>
+              <div class="price">{retreat.price} <small data-i18n="detail.per">pro Gast</small></div>
+            </>
+          )}
           <div class="dates">
             <div class="dates-row">
               <span data-i18n="detail.dates">Termin</span>
@@ -101,14 +105,18 @@ const { retreat } = Astro.props;
               <span data-i18n="detail.group">Gruppe</span>
               <span>{retreat.guests} <span data-i18n="r.guests">Gäste</span></span>
             </div>
-            <div class="dates-row">
-              <span data-i18n="detail.deposit">Anzahlung</span>
-              <span>{retreat.deposit}</span>
-            </div>
-            <div class="dates-row">
-              <span data-i18n="detail.remaining">Restbetrag</span>
-              <span data-i18n-de={retreat.remainingDue.de} data-i18n-en={retreat.remainingDue.en}>{retreat.remainingDue.de}</span>
-            </div>
+            {retreat.deposit && (
+              <div class="dates-row">
+                <span data-i18n="detail.deposit">Anzahlung</span>
+                <span>{retreat.deposit}</span>
+              </div>
+            )}
+            {retreat.remainingDue.de && (
+              <div class="dates-row">
+                <span data-i18n="detail.remaining">Restbetrag</span>
+                <span data-i18n-de={retreat.remainingDue.de} data-i18n-en={retreat.remainingDue.en}>{retreat.remainingDue.de}</span>
+              </div>
+            )}
           </div>
           <button type="button" class="btn btn-primary" data-reserve={retreat.code} data-i18n="detail.reserve">Platz reservieren</button>
           <div class="foot" data-i18n="detail.footnote">Heute wird keine Karte belastet · sicher bezahlen</div>

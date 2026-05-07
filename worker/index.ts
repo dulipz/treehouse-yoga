@@ -15,6 +15,7 @@
 import { handleBooking } from './booking';
 import { handleContact } from './contact';
 import { handleCheckout, handleStripeWebhook } from './stripe';
+import { handleAvailability } from './availability';
 
 export interface Env {
   // Static-assets binding (serves ./dist)
@@ -46,19 +47,28 @@ export default {
       url.pathname === '/api/booking' ||
       url.pathname === '/api/contact' ||
       url.pathname === '/api/checkout' ||
-      url.pathname === '/api/stripe-webhook'
+      url.pathname === '/api/stripe-webhook' ||
+      url.pathname === '/api/availability'
     ) {
       if (request.method === 'OPTIONS') {
         return new Response(null, {
           status: 204,
           headers: {
             'Access-Control-Allow-Origin': env.SITE_URL,
-            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type, stripe-signature',
             'Access-Control-Max-Age': '86400',
           },
         });
       }
+      // GET endpoints: availability
+      if (url.pathname === '/api/availability') {
+        if (request.method !== 'GET') {
+          return json({ ok: false, error: 'method_not_allowed' }, 405);
+        }
+        return handleAvailability(request, env);
+      }
+      // POST endpoints
       if (request.method !== 'POST') {
         return json({ ok: false, error: 'method_not_allowed' }, 405);
       }

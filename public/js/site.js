@@ -112,18 +112,21 @@
       + '      <label class="form-field"><span data-i18n="book.f.retreat">Retreat ausw\u00e4hlen</span>'
       + '        <select name="retreat" required>'
       + '          <option value="" data-i18n="book.opt.choose">Bitte w\u00e4hlen…</option>'
-      + '          <option value="r1" data-i18n="book.opt.r1">Dschungel &amp; Meer — 14.–21. Nov. 2026</option>'
-      + '          <option value="r2" data-i18n="book.opt.r2">Stille Morgen — 6.–16. Feb. 2027</option>'
       + '        </select>'
       + '      </label>'
       + '      <label class="form-field"><span data-i18n="book.f.guests">Anzahl G\u00e4ste</span>'
       + '        <select name="guests" required>'
       + '          <option value="1">1</option>'
       + '          <option value="2">2</option>'
-      + '          <option value="3">3</option>'
-      + '          <option value="4">4</option>'
       + '        </select>'
       + '      </label>'
+      + '      <label class="form-field"><span data-i18n="book.f.room">Zimmer</span>'
+      + '        <select name="room" required>'
+      + '          <option value="" data-i18n="book.opt.choose_room">Zuerst Retreat wählen…</option>'
+      + '        </select>'
+      + '        <small class="form-hint room-hint" hidden></small>'
+      + '      </label>'
+      + '      <p class="form-group-cta"><span data-i18n="book.group.intro">Gruppe oder 3+ Zimmer? </span><a href="/contact.html" data-i18n="book.group.link">Schreib uns direkt →</a></p>'
       + '      <label class="form-check">'
       + '        <input type="checkbox" name="human" required />'
       + '        <span data-i18n="book.human">Ich best\u00e4tige, dass ich ein Mensch bin.</span>'
@@ -132,7 +135,7 @@
       + '        <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>'
       + '      </div>'
       + '      <div class="form-error" role="alert" aria-live="polite"></div>'
-      + '      <button type="submit" class="btn btn-primary book-send" data-i18n="book.send">Senden</button>'
+      + '      <button type="submit" class="btn btn-primary book-send" data-i18n="book.send" disabled>Senden</button>'
       + '      <p class="form-footnote" data-i18n="book.footnote">Kein Versand heute — wir melden uns innerhalb eines Werktags.</p>'
       + '    </form>'
       + '    <div class="book-success" hidden>'
@@ -153,6 +156,170 @@
     var err = modal.querySelector('.form-error');
     var successPane = modal.querySelector('.book-success');
     var formPane = modal.querySelector('.book-body form');
+    var retreatSel = form.querySelector('select[name=retreat]');
+    var guestsSel = form.querySelector('select[name=guests]');
+    var roomSel = form.querySelector('select[name=room]');
+    var roomHint = form.querySelector('.room-hint');
+
+    // Cache of booked room slugs per retreat. Populated on first open of that
+    // retreat, refreshed on every subsequent retreat change. Keeps the UI snappy
+    // and avoids hammering /api/availability.
+    var availabilityCache = {};
+
+    // ---- Populate retreats once at modal init ----
+    (function populateRetreats(){
+      var retreats = (window.THYR_RETREATS || []).slice();
+      // Drop everything past the placeholder option
+      while (retreatSel.options.length > 1) retreatSel.remove(1);
+      retreats.forEach(function(r){
+        var opt = document.createElement('option');
+        opt.value = r.slug;
+        // Per-language strings — the i18n machinery picks the active one
+        var labelDe = (r.title.de || '') + ' — ' + (r.dates.de || '');
+        var labelEn = (r.title.en || '') + ' — ' + (r.dates.en || '');
+        opt.setAttribute('data-i18n-de', labelDe);
+        opt.setAttribute('data-i18n-en', labelEn);
+        opt.textContent = labelDe;
+        retreatSel.appendChild(opt);
+      });
+      // Re-apply translations so the options pick up the active language
+      try {
+        var lang = (document.documentElement.getAttribute('lang') || 'de').toLowerCase().slice(0, 2);
+        var inline = retreatSel.querySelectorAll('option[data-i18n-de]');
+        for (var i = 0; i < inline.length; i++) {
+          var t = inline[i].getAttribute('data-i18n-' + lang);
+          if (t != null) inline[i].textContent = t;
+        }
+      } catch (e) {}
+    })();
+
+    function setRoomPlaceholder(key) {
+      // Replace the room dropdown with just a placeholder using the given i18n key.
+      while (roomSel.options.length > 0) roomSel.remove(0);
+      var ph = document.createElement('option');
+      ph.value = '';
+      ph.setAttribute('data-i18n', key);
+      // Best-effort default text — applyTranslations() will overwrite it.
+      var fallback = {
+        'book.opt.choose_room': 'Zuerst Retreat wählen…',
+        'book.opt.no_rooms': 'Keine Zimmer verfügbar',
+        'book.opt.loading_rooms': 'Verfügbarkeit wird geprüft…',
+        'book.opt.pick_room': 'Bitte Zimmer wählen…'
+      };
+      ph.textContent = fallback[key] || '';
+      roomSel.appendChild(ph);
+      // Trigger global re-translation so the placeholder updates
+      try { window.THYR_APPLY_LANG && window.THYR_APPLY_LANG(); } catch (e) {}
+    }
+
+    function fillRoomOptions(retreatSlug, guests, bookedSlugs) {
+      var rooms = (window.THYR_ROOMS || []).slice();
+      while (roomSel.options.length > 0) roomSel.remove(0);
+
+      // Placeholder first
+      var ph = document.createElement('option');
+      ph.value = '';
+      ph.setAttribute('data-i18n', 'book.opt.pick_room');
+      ph.textContent = 'Bitte Zimmer wählen…';
+      roomSel.appendChild(ph);
+
+      // Strip the "Zimmer „..."" / "Room "...""  wrappers so the dropdown
+      // shows just the proper name (Iris, Philipp, etc.). The wrapper words
+      // are redundant given the field label is already "Zimmer".
+      function shortName(label) {
+        if (!label) return '';
+        // Remove leading "Zimmer " or "Room " (case-insensitive)
+        var stripped = label.replace(/^(zimmer|room)\s+/i, '');
+        // Remove surrounding German low-9/high-9 quotes („Iris") or ASCII " "
+        stripped = stripped.replace(/^[„"']/, '').replace(/[“”"']$/, '');
+        return stripped.trim();
+      }
+
+      var added = 0;
+      rooms.forEach(function(r){
+        if (bookedSlugs.indexOf(r.slug) !== -1) return; // already booked
+        if (guests >= 2 && r.capacity === 'single only') return; // doesn't fit
+        var opt = document.createElement('option');
+        opt.value = r.slug;
+        var labelDe = shortName(r.name && r.name.de) || r.slug;
+        var labelEn = shortName(r.name && r.name.en) || r.slug;
+        opt.setAttribute('data-i18n-de', labelDe);
+        opt.setAttribute('data-i18n-en', labelEn);
+        opt.textContent = labelDe;
+        roomSel.appendChild(opt);
+        added++;
+      });
+
+      if (added === 0) {
+        // Replace placeholder with "no rooms available"
+        ph.setAttribute('data-i18n', 'book.opt.no_rooms');
+        ph.textContent = 'Keine Zimmer verfügbar';
+        if (roomHint) {
+          roomHint.hidden = false;
+          roomHint.setAttribute('data-i18n', 'book.f.room.none_hint');
+          roomHint.textContent = 'Alle Zimmer sind belegt — schreib uns gerne direkt.';
+        }
+      } else if (roomHint) {
+        roomHint.hidden = true;
+      }
+
+      try { window.THYR_APPLY_LANG && window.THYR_APPLY_LANG(); } catch (e) {}
+    }
+
+    async function refreshRoomDropdown() {
+      var retreatSlug = retreatSel.value;
+      var guests = parseInt(guestsSel.value, 10) || 1;
+
+      if (!retreatSlug) {
+        setRoomPlaceholder('book.opt.choose_room');
+        return;
+      }
+
+      // Loading state while we fetch availability
+      setRoomPlaceholder('book.opt.loading_rooms');
+
+      var cached = availabilityCache[retreatSlug];
+      if (!cached) {
+        try {
+          var res = await fetch('/api/availability?retreat=' + encodeURIComponent(retreatSlug));
+          var body = await res.json();
+          cached = (body && body.ok) ? (body.booked || []) : [];
+          availabilityCache[retreatSlug] = cached;
+        } catch (e) {
+          cached = [];
+        }
+      }
+
+      fillRoomOptions(retreatSlug, guests, cached);
+    }
+
+    // Expose a globally-callable language re-applier so the helpers above can
+    // ask the existing applyTranslations() function to rerun. Set during init.
+    if (typeof applyTranslations === 'function') {
+      window.THYR_APPLY_LANG = function(){
+        try { applyTranslations(getLang()); } catch (e) {}
+      };
+    }
+
+    retreatSel.addEventListener('change', function(){
+      // Clear cache for this retreat so we get fresh data on first switch back
+      // (room may have been booked while modal was open). Keep prev cached for
+      // others to avoid re-fetching when the user toggles between two retreats.
+      availabilityCache[retreatSel.value] = undefined;
+      refreshRoomDropdown();
+    });
+    guestsSel.addEventListener('change', refreshRoomDropdown);
+
+    // Disable the submit button until the human-confirmation checkbox is ticked.
+    // Visual signal that the box is required, even though the form also
+    // validates it on submit.
+    var humanCheckbox = form.querySelector('input[name=human]');
+    var sendBtn = form.querySelector('.book-send');
+    if (humanCheckbox && sendBtn) {
+      humanCheckbox.addEventListener('change', function(){
+        sendBtn.disabled = !humanCheckbox.checked;
+      });
+    }
 
     function openModal(retreatKey) {
       modal.classList.add('is-open');
@@ -161,9 +328,15 @@
       form.hidden = false;
       successPane.hidden = true;
       if (retreatKey) {
-        var sel = form.querySelector('select[name=retreat]');
-        if (sel) sel.value = retreatKey;
+        // Only set if the option exists — otherwise fall back to the default.
+        var match = false;
+        for (var i = 0; i < retreatSel.options.length; i++) {
+          if (retreatSel.options[i].value === retreatKey) { match = true; break; }
+        }
+        if (match) retreatSel.value = retreatKey;
       }
+      // Populate / refresh the room dropdown based on whatever retreat is selected
+      refreshRoomDropdown();
       setTimeout(function(){
         var first = form.querySelector('input[name=name]');
         if (first) first.focus();
@@ -207,6 +380,7 @@
       var retreat = form.retreat.value;
       var guestsRaw = (form.guests && form.guests.value) || '1';
       var guests = parseInt(guestsRaw, 10) || 1;
+      var room = (form.room && form.room.value) || '';
       var human = form.human.checked;
       var honeypot = (form.website && form.website.value) || '';
 
@@ -215,6 +389,7 @@
           missing: 'Bitte f\u00fclle alle Felder aus.',
           email:   'Bitte eine g\u00fcltige E-Mail-Adresse angeben.',
           phone:   'Bitte eine g\u00fcltige Mobilnummer angeben.',
+          room:    'Bitte ein Zimmer ausw\u00e4hlen.',
           human:   'Bitte best\u00e4tige, dass du ein Mensch bist.',
           server:  'Es gab ein Problem beim Senden. Bitte versuche es in einem Moment noch einmal.',
           network: 'Verbindung fehlgeschlagen. Bitte pr\u00fcfe deine Internetverbindung.',
@@ -224,6 +399,7 @@
           missing: 'Please fill in every field.',
           email:   'Please enter a valid email address.',
           phone:   'Please enter a valid mobile number.',
+          room:    'Please choose a room.',
           human:   'Please confirm you are a human.',
           server:  'There was a problem sending. Please try again in a moment.',
           network: 'Connection failed. Please check your internet connection.',
@@ -235,6 +411,7 @@
       if (!firstname || !surname || !email || !phone || !retreat) { err.textContent = M.missing; return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = M.email; return; }
       if (!/^[+\d][\d\s\-()]{6,}$/.test(phone)) { err.textContent = M.phone; return; }
+      if (!room) { err.textContent = M.room; return; }
       if (!human) { err.textContent = M.human; return; }
 
       // Pull the retreat title + dates out of the currently-rendered option text.
@@ -254,6 +431,7 @@
         retreatTitle: retreatTitle,
         dates: retreatDates,
         guests: guests,
+        room: room,
         // Phone isn't a dedicated Airtable field yet, so surface it in the message.
         message: (lang === 'de' ? 'Telefon: ' : 'Phone: ') + phone,
         lang: lang,
@@ -412,6 +590,14 @@
     var errEl = form.querySelector('.form-error');
     var successEl = form.querySelector('.form-success');
     var btn = form.querySelector('button[type=submit]');
+    var humanCheckbox = form.querySelector('input[name=human]');
+
+    // Disable submit until the human-confirmation checkbox is ticked.
+    if (humanCheckbox && btn) {
+      humanCheckbox.addEventListener('change', function(){
+        btn.disabled = !humanCheckbox.checked;
+      });
+    }
 
     form.addEventListener('submit', function (ev) {
       ev.preventDefault();
@@ -422,6 +608,7 @@
       var which = (form.querySelector('[name=which]') || {}).value || '';
       var note = (form.querySelector('[name=note]') || {}).value || '';
       var honeypot = (form.querySelector('[name=website]') || {}).value || '';
+      var human = humanCheckbox ? humanCheckbox.checked : true;
       var lang = getLang();
 
       name = name.trim();
@@ -433,6 +620,7 @@
         de: {
           missing: 'Bitte f\u00fclle Name und E-Mail aus.',
           email:   'Bitte eine g\u00fcltige E-Mail-Adresse angeben.',
+          human:   'Bitte best\u00e4tige, dass du ein Mensch bist.',
           server:  'Es gab ein Problem beim Senden. Bitte versuche es in einem Moment noch einmal.',
           network: 'Verbindung fehlgeschlagen. Bitte pr\u00fcfe deine Internetverbindung.',
           sending: 'Senden\u2026'
@@ -440,6 +628,7 @@
         en: {
           missing: 'Please fill in name and email.',
           email:   'Please enter a valid email address.',
+          human:   'Please confirm you are a human.',
           server:  'There was a problem sending. Please try again in a moment.',
           network: 'Connection failed. Please check your internet connection.',
           sending: 'Sending\u2026'
@@ -449,6 +638,7 @@
 
       if (!name || !email) { if (errEl) errEl.textContent = M.missing; return; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { if (errEl) errEl.textContent = M.email; return; }
+      if (!human) { if (errEl) errEl.textContent = M.human; return; }
 
       var payload = {
         name: name,

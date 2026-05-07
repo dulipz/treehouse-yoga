@@ -5,7 +5,8 @@
 // allowed (ignored), but known keys must match their shape exactly.
 
 export type Lang = 'de' | 'en';
-export type RetreatCode = 'r1' | 'r2';
+/** Retreat slug — short kebab-case identifier from the Retreats Airtable table. */
+export type RetreatCode = string;
 
 export interface BookingInput {
   name: string;
@@ -14,6 +15,8 @@ export interface BookingInput {
   retreatTitle: string;
   dates: string;
   guests: number;
+  /** Room slug (optional for now — modal validates client-side too). */
+  room?: string;
   message: string;
   lang: Lang;
   // Honeypot — must be empty. Bots fill it in, humans never see it.
@@ -33,6 +36,9 @@ const MAX_MESSAGE = 2000;
 const MAX_DATES = 120;
 const MAX_TITLE = 200;
 const MAX_GUESTS = 8;
+
+// Slugs are kebab-case lowercase, optional digits and hyphens.
+const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,63}$/;
 
 export function validate(body: unknown): ValidateResult {
   if (body === null || typeof body !== 'object') {
@@ -55,9 +61,21 @@ export function validate(body: unknown): ValidateResult {
     return { ok: false, error: 'invalid_email', field: 'email' };
   }
 
-  const retreatCode = b.retreatCode;
-  if (retreatCode !== 'r1' && retreatCode !== 'r2') {
+  const retreatCodeRaw = typeof b.retreatCode === 'string' ? b.retreatCode.trim().toLowerCase() : '';
+  if (!SLUG_RE.test(retreatCodeRaw)) {
     return { ok: false, error: 'invalid_retreat', field: 'retreatCode' };
+  }
+  const retreatCode = retreatCodeRaw;
+
+  // Room is optional — older clients (or group-inquiry bookings) may omit it.
+  // When present, must match slug shape.
+  let room: string | undefined;
+  if (b.room !== undefined && b.room !== null && b.room !== '') {
+    const roomRaw = typeof b.room === 'string' ? b.room.trim().toLowerCase() : '';
+    if (!SLUG_RE.test(roomRaw)) {
+      return { ok: false, error: 'invalid_room', field: 'room' };
+    }
+    room = roomRaw;
   }
 
   const retreatTitle = typeof b.retreatTitle === 'string' ? b.retreatTitle.trim() : '';
@@ -92,6 +110,7 @@ export function validate(body: unknown): ValidateResult {
       retreatTitle,
       dates,
       guests,
+      room,
       message,
       lang,
     },

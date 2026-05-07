@@ -10,10 +10,11 @@ const IMG = '/assets/images_new';
   description="Iris und Chantal, ihre Geschichte, und wie ein Retreat in Hikkaduwa wirklich abläuft."
   active="about"
   transparent={true}
+  heroImage="/assets/images_new/section_hero_images/about.jpg"
 >
   <!-- ─── Hero ─── -->
   <section class="hero hero--page">
-    <img class="hero-bg" src="/assets/images_new/section_hero_images/about.jpg" alt="Iris und Chantal an der Südküste Sri Lankas" />
+    <img class="hero-bg" src="/assets/images_new/section_hero_images/about.jpg" alt="Iris und Chantal an der Südküste Sri Lankas" fetchpriority="high" />
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-card">
@@ -58,96 +59,9 @@ const IMG = '/assets/images_new';
     </div>
   </section>
 
-  <!-- ─── 4 · Day in retreat (long prose) ─── -->
+  <!-- ─── What makes our retreat special ─── -->
   <section class="section section--sand">
     <div class="container">
-      <div class="section-head left">
-        <span class="eyebrow" data-i18n="about.day.eyebrow">das retreat</span>
-        <h2 data-i18n="about.day.title">Ein Tag im Retreat.</h2>
-      </div>
-
-      <div class="bio-block">
-        <figure class="bio-img img-painted img-painted--b">
-          <img src={`${IMG}/chantal/chantal_004.jpeg`} alt="Yoga auf der Matte im Garten der Villa" loading="lazy" />
-        </figure>
-        <div class="bio-prose">
-          <p data-i18n="about.day.p1">Dein Retreat startet mit einer Willkommenszeremonie und einem gemeinsamen Abendessen. So hast du Gelegenheit, in Ruhe anzukommen und die anderen Teilnehmenden kennenzulernen.</p>
-          <p data-i18n="about.day.p2">Jeder Tag beginnt mit Yoga im Freien zum Sonnenaufgang — eine dynamische, fließende Vinyasa-Einheit, die dich sanft aktiviert und belebt. Danach erwartet dich ein gemeinsames Frühstück, frisch zubereitet und abwechslungsreich, mit Zutaten, die es so nur auf Sri Lanka gibt.</p>
-          <p data-i18n="about.day.p3">Den weiteren Tag gestaltest du ganz nach deinen Bedürfnissen: Entspannung am Meer, Lesen am Pool, kleine Ausflüge oder einfach Zeit für dich. Iris ist bestens vernetzt und kennt die schönsten Orte, Plätze und Menschen. So entsteht eine entspannte Mischung aus Ruhe, Abenteuer und lokalen Erlebnissen.</p>
-          <p data-i18n="about.day.p4">Am Abend treffen wir uns erneut zur Yoga-Praxis — dieses Mal eine sanfte Yin-Einheit, die zum Loslassen, Entspannen und Regenerieren einlädt. Danach lassen wir den Tag bei einem von Iris frisch gekochten Abendessen ausklingen. Ihre singhalesische Küche ist vielseitig, aromatisch und voller Liebe — mit Currypulver aus eigener Herstellung und Zutaten, die du in Deutschland kaum findest.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── 5 · Day overview (numbered concept-grid) ─── -->
-  <section class="section container">
-    <div class="section-head left">
-      <span class="eyebrow" data-i18n="about.flow.eyebrow">tagesablauf</span>
-      <h2 data-i18n="about.flow.title">Der Tag im Überblick.</h2>
-    </div>
-
-    <div class="concept-grid">
-      <div class="concept-item">
-        <span class="num">01</span>
-        <h4 data-i18n="about.flow.a.h">Yoga bei Sonnenaufgang</h4>
-        <p data-i18n="about.flow.a.b">Vinyasa im Freien — sanft aktivierend, fließend, am offenen Shala.</p>
-      </div>
-      <div class="concept-item">
-        <span class="num">02</span>
-        <h4 data-i18n="about.flow.b.h">Gemeinsames Frühstück</h4>
-        <p data-i18n="about.flow.b.b">Frisch zubereitet, abwechslungsreich, mit Zutaten direkt von der Insel.</p>
-      </div>
-      <div class="concept-item">
-        <span class="num">03</span>
-        <h4 data-i18n="about.flow.c.h">Freie Zeit</h4>
-        <p data-i18n="about.flow.c.b">Strand, Pool, Lesen, Spaziergang — der Tag gehört dir.</p>
-      </div>
-      <div class="concept-item">
-        <span class="num">04</span>
-        <h4 data-i18n="about.flow.d.h">Optional: Workshops &amp; Ausflüge</h4>
-        <p data-i18n="about.flow.d.b">Massagen, Kochkurse, Tagesausflüge — individuell zubuchbar.</p>
-      </div>
-      <div class="concept-item">
-        <span class="num">05</span>
-        <h4 data-i18n="about.flow.e.h">Yoga am Abend</h4>
-        <p data-i18n="about.flow.e.b">Sanftes Yin zum Loslassen, Entspannen, Regenerieren.</p>
-      </div>
-      <div class="concept-item">
-        <span class="num">06</span>
-        <h4 data-i18n="about.flow.f.h">Abendessen mit Iris</h4>
-        <p data-i18n="about.flow.f.b">Singhalesische Küche, frisch gekocht — vielseitig, aromatisch, voller Liebe.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── 6 · Optional add-ons ─── -->
-  <section class="section section--sand">
-    <div class="container">
-      <div class="section-head left">
-        <span class="eyebrow" data-i18n="about.addons.eyebrow">individuell zubuchbar</span>
-        <h2 data-i18n="about.addons.title">Zusätzliche Angebote.</h2>
-        <p data-i18n="about.addons.body">Auf Wunsch kannst du dein Retreat mit weiteren Angeboten bereichern — du entscheidest, was dir guttun soll.</p>
-      </div>
-
-      <div class="bio-block bio-block--rev">
-        <figure class="bio-img img-painted img-painted--c">
-          <img src={`${IMG}/chantal/chantal_006.jpeg`} alt="Stille Yoga-Praxis am Fenster" loading="lazy" />
-        </figure>
-        <ul class="addon-list">
-          <li data-i18n="about.addon.1">Einzelstunden Yoga oder Meditation mit Iris oder Chantal</li>
-          <li data-i18n="about.addon.2">Hypnose-Sitzungen — Iris ist qualifiziert und erfahren</li>
-          <li data-i18n="about.addon.3">Ayurveda-Behandlungen durch einen befreundeten Ayurveda-Arzt</li>
-          <li data-i18n="about.addon.4">Massagen</li>
-          <li data-i18n="about.addon.5">Singhalesische Kochkurse mit Iris oder befreundeten Familien</li>
-          <li data-i18n="about.addon.6">Tagesausflüge zu besonderen Orten und authentische lokale Erlebnisse</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── 7 · What makes our retreat special ─── -->
-  <section class="section container">
     <div class="section-head left">
       <span class="eyebrow" data-i18n="about.special.eyebrow">was es ausmacht</span>
       <h2 data-i18n="about.special.title">Was unser Retreat besonders macht.</h2>
@@ -183,25 +97,10 @@ const IMG = '/assets/images_new';
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- ─── 8 · Arrival & wellbeing ─── -->
-  <section class="section section--sand">
-    <div class="container">
-      <div class="bio-block">
-        <figure class="bio-img img-painted">
-          <img src={`${IMG}/iris_chantal_together/iris_chantal_006.jpeg`} alt="Iris und Chantal gemeinsam auf einem Boot in der Lagune" loading="lazy" />
-        </figure>
-        <div class="bio-prose">
-          <span class="eyebrow" data-i18n="about.arrive.eyebrow">ankommen &amp; wohlfühlen</span>
-          <h2 data-i18n="about.arrive.title">Komm wie du bist — du bist genug.</h2>
-          <p data-i18n="about.arrive.body">Ihr reist nach Colombo, werdet direkt am Flughafen von uns abgeholt, und nur drei Stunden später sitzt ihr auf der Veranda, blickt aufs Meer und spürt, wie der Stress abfällt. Zehn Tage zum Loslassen, Auftanken und ganz im Hier und Jetzt sein. Wir begleiten dich — offen, empathisch und voller Freude.</p>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- ─── 9 · Iris & Chantal intro ─── -->
+  <!-- ─── Iris & Chantal intro ─── -->
   <section class="section container">
     <div class="bio-block bio-block--rev">
       <figure class="bio-img img-painted img-painted--b">
@@ -282,6 +181,18 @@ const IMG = '/assets/images_new';
         <p data-i18n="about.chantal.p5">Meine Vision: Mit unserem Retreat auf Sri Lanka möchten wir einen Ort schaffen, an dem du auftanken, loslassen und wachsen kannst. Ein Ort für echte Verbindung — mit dir selbst, mit anderen und mit der Natur. Komm wie du bist. Du bist genug.</p>
         <p class="namaste" data-i18n="about.chantal.sign">Namaste<br />Chantal</p>
       </div>
+    </div>
+  </section>
+
+  <!-- ─── Meet us first (videocall CTA) ─── -->
+  <section class="section section--sand">
+    <div class="container">
+      <div class="section-head left">
+        <span class="eyebrow" data-i18n="about.meet.eyebrow">lerne uns vorher kennen</span>
+        <h2 data-i18n="about.meet.title">Erst kennenlernen, dann entscheiden.</h2>
+        <p data-i18n="about.meet.body">Du hast die Möglichkeit, uns vorab persönlich kennenzulernen — buche dir dafür ganz unkompliziert einen 30-minütigen Videocall mit Iris und Chantal. Wir nehmen uns gerne Zeit für dich, beantworten deine Fragen rund um das Retreat. Uns ist wichtig, dass du Klarheit bekommst und mit einem stimmigen Gefühl in deine Entscheidung gehst. Im Gespräch geht es auch darum, dass wir uns gegenseitig kennenlernen und gemeinsam schauen, ob das Retreat gut zu dir passt.</p>
+      </div>
+      <a class="btn btn-primary" href="/contact.html" data-i18n="about.meet.cta">Videocall anfragen</a>
     </div>
   </section>
 </Base>

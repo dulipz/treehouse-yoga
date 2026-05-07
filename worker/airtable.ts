@@ -67,7 +67,7 @@ async function createRecord(
 // -- Booking record --------------------------------------------------------
 
 export function createBookingRecord(input: BookingInput, env: Env): Promise<AirtableResult> {
-  const fields = {
+  const fields: Record<string, unknown> = {
     'Status': 'New',
     'Retreat code': input.retreatCode,
     'Retreat title': input.retreatTitle,
@@ -79,6 +79,12 @@ export function createBookingRecord(input: BookingInput, env: Env): Promise<Airt
     'Source': 'website',
     'Lang': input.lang,
   };
+  // Room is a linked-record field on Bookings → Rooms. With typecast: true
+  // (in createRecord), Airtable resolves the Slug primary-field text to the
+  // matching Rooms record automatically.
+  if (input.room) {
+    fields['Room'] = [input.room];
+  }
   return createRecord(env.AIRTABLE_TABLE_NAME, fields, env, 'Booking ID');
 }
 

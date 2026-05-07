@@ -8,19 +8,30 @@ import Base from '../layouts/Base.astro';
 type Span = 'tall' | 'wide' | null;
 interface Img { src: string; span: Span; }
 
-// — Yoga retreat: poses, mats, group portraits
+// — Yoga retreat: poses, mats, group portraits.
+// Spans assigned by aspect ratio: portrait shots (004, 011, 020) get 'tall',
+// the panorama (014) and a couple landscapes get 'wide' for visual rhythm.
 const yogaImages: Img[] = [
-  { src: '/assets/retreat-group-1.jpg',  span: 'tall' },
-  { src: '/assets/retreat-group-2.jpg',  span: null   },
-  { src: '/assets/retreat-group-9.jpg',  span: 'wide' },
-  { src: '/assets/retreat-group-10.jpg', span: null   },
-  { src: '/assets/retreat-group-17.jpg', span: 'tall' },
-  { src: '/assets/retreat-group-12.jpg', span: null   },
-  { src: '/assets/retreat-group-13.jpg', span: 'wide' },
-  { src: '/assets/retreat-group-14.jpg', span: null   },
-  { src: '/assets/retreat-group-3.jpg',  span: null   },
-  { src: '/assets/retreat-group-4.jpg',  span: null   },
-  { src: '/assets/retreat-group-18.jpg', span: null   },
+  { src: '/assets/new_retreat_images/yoga_retreat_001.jpg', span: 'wide' },
+  { src: '/assets/new_retreat_images/yoga_retreat_002.jpg', span: null   },
+  { src: '/assets/new_retreat_images/yoga_retreat_003.jpg', span: null   },
+  { src: '/assets/new_retreat_images/yoga_retreat_004.jpg', span: 'tall' },
+  { src: '/assets/new_retreat_images/yoga_retreat_005.jpg', span: null   },
+  { src: '/assets/new_retreat_images/yoga_retreat_006.jpg', span: null   },
+  { src: '/assets/new_retreat_images/yoga_retreat_007.jpg', span: 'wide' },
+  { src: '/assets/new_retreat_images/yoga_retreat_008.jpg', span: null   },
+  { src: '/assets/new_retreat_images/yoga_retreat_009.jpg', span: null   },
+  { src: '/assets/new_retreat_images/yoga_retreat_010.jpg', span: null   },
+  { src: '/assets/new_retreat_images/yoga_retreat_011.jpg', span: 'tall' },
+  { src: '/assets/new_retreat_images/yoga_retreat_013.jpg', span: null   },
+  { src: '/assets/new_retreat_images/yoga_retreat_014.jpg', span: 'wide' },
+  { src: '/assets/new_retreat_images/yoga_retreat_015.jpg', span: null   },
+  { src: '/assets/new_retreat_images/yoga_retreat_016.jpg', span: null   },
+  { src: '/assets/new_retreat_images/yoga_retreat_017.jpg', span: null   },
+  { src: '/assets/new_retreat_images/yoga_retreat_018.jpg', span: null   },
+  { src: '/assets/new_retreat_images/yoga_retreat_019.jpg', span: null   },
+  { src: '/assets/new_retreat_images/yoga_retreat_020.jpg', span: 'tall' },
+  { src: '/assets/new_retreat_images/yoga_retreat_021.jpg', span: null   },
 ];
 
 // — Beautiful location: villa, treehouse, jungle, lake, surf, golden hour
@@ -46,9 +57,10 @@ const classFor = (s: Span) => s === 'tall' ? 'g-item g-tall' : s === 'wide' ? 'g
   description="Glimpses from Hikkaduwa — yoga, the villa, the jungle, the mornings."
   active="gallery"
   transparent={true}
+  heroImage="/assets/images_new/section_hero_images/gallery.jpg"
 >
   <section class="hero hero--page">
-    <img class="hero-bg" src="/assets/images_new/section_hero_images/gallery.jpg" alt="Eindrücke aus Hikkaduwa" />
+    <img class="hero-bg" src="/assets/images_new/section_hero_images/gallery.jpg" alt="Eindrücke aus Hikkaduwa" fetchpriority="high" />
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-card">

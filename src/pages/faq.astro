@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+
+// 23 question/answer pairs. Sourced from the Yoga Retreat content brief.
+// Keyed under faq.q.<id>.q / faq.q.<id>.a in i18n.js.
+const faqs: Array<{ id: string }> = [
+  { id: 'flights' },
+  { id: 'free-time' },
+  { id: 'beginner' },
+  { id: 'gender' },
+  { id: 'optional' },
+  { id: 'extend' },
+  { id: 'payment' },
+  { id: 'allergies' },
+  { id: 'vegetarian' },
+  { id: 'group-size' },
+  { id: 'solo' },
+  { id: 'age' },
+  { id: 'couples' },
+  { id: 'safety' },
+  { id: 'visa' },
+  { id: 'wifi' },
+  { id: 'power' },
+  { id: 'water' },
+  { id: 'aircon' },
+  { id: 'fitness' },
+  { id: 'health' },
+  { id: 'spiritual' },
+  { id: 'cancel' },
+];
+---
+<Base
+  title="Häufige Fragen — Tree House Yoga Retreat"
+  description="Antworten auf die häufigsten Fragen rund um unser Retreat in Hikkaduwa, Sri Lanka."
+  active={null}
+>
+  <section class="section section--compact container faq-page">
+    <div class="section-head left">
+      <span class="eyebrow" data-i18n="faq.eyebrow">häufige fragen</span>
+      <h1 data-i18n="faq.title">Antworten auf die häufigsten Fragen.</h1>
+      <p data-i18n="faq.body">Falls deine Frage nicht dabei ist, schreib uns gerne — wir antworten meist am selben Tag.</p>
+    </div>
+
+    <div class="faq-list">
+      {faqs.map((f) => (
+        <article class="faq-item">
+          <h3 data-i18n={`faq.q.${f.id}.q`}>{f.id}</h3>
+          <p data-i18n={`faq.q.${f.id}.a`}>—</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</Base>

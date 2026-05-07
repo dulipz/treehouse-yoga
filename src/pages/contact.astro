@@ -6,9 +6,10 @@ import Base from '../layouts/Base.astro';
   description="Say hello. We usually reply the same day, in German or English."
   active="contact"
   transparent={true}
+  heroImage="/assets/images_new/section_hero_images/contact.jpg"
 >
   <section class="hero hero--page">
-    <img class="hero-bg" src="/assets/images_new/section_hero_images/contact.jpg" alt="Hikkaduwa — schreib uns" />
+    <img class="hero-bg" src="/assets/images_new/section_hero_images/contact.jpg" alt="Hikkaduwa — schreib uns" fetchpriority="high" />
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-card">
@@ -19,7 +20,29 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
+  <!-- ─── Intro / reservation info ─── -->
   <section class="section container">
+    <div class="section-head left">
+      <span class="eyebrow" data-i18n="contact.intro.eyebrow">interessiert?</span>
+      <h2 data-i18n="contact.intro.title">Konnten wir dein Interesse wecken?</h2>
+      <p data-i18n="contact.intro.body">Hast du Fragen oder möchtest du uns kennenlernen? Wir freuen uns auf deine Nachricht. Erreich uns über das Formular unten oder vereinbare einen 30-minütigen Videocall mit Iris und Chantal — so bekommst du Klarheit und kannst mit einem stimmigen Gefühl entscheiden.</p>
+    </div>
+
+    <div class="reserve-info">
+      <h3 data-i18n="contact.reserve.h">Wenn du einen Platz im Retreat reservieren möchtest, teile uns bitte folgendes mit:</h3>
+      <ul class="reserve-list">
+        <li data-i18n="contact.reserve.l1">Vor- und Nachname</li>
+        <li data-i18n="contact.reserve.l2">Adresse</li>
+        <li data-i18n="contact.reserve.l3">Geburtsdatum</li>
+        <li data-i18n="contact.reserve.l4">Gesundheitliche Besonderheiten oder relevante Krankheiten</li>
+        <li data-i18n="contact.reserve.l5">Unverträglichkeiten oder Diäten (z. B. vegetarisch)</li>
+      </ul>
+      <p class="reserve-note" data-i18n="contact.reserve.b">Mit deiner Anfrage hilfst du uns, dich und deine Bedürfnisse besser kennenzulernen und deinen Platz im Retreat optimal vorzubereiten. Nach Eingang deiner Nachricht melden wir uns persönlich bei dir zurück und besprechen die weiteren Schritte gemeinsam mit dir.</p>
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container">
     <div class="contact-grid">
       <form class="form-grid" data-contact novalidate>
         <div>
@@ -42,8 +65,12 @@ import Base from '../layouts/Base.astro';
         <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
           <label>Website<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
         </div>
+        <label class="form-check" style="grid-column:1/-1">
+          <input type="checkbox" name="human" required />
+          <span data-i18n="contact.human">Ich bestätige, dass ich ein Mensch bin.</span>
+        </label>
         <div class="form-error" role="alert" aria-live="polite" style="grid-column:1/-1"></div>
-        <button type="submit" class="btn btn-primary" data-i18n="contact.send">Senden</button>
+        <button type="submit" class="btn btn-primary" data-i18n="contact.send" disabled>Senden</button>
         <div class="form-success" hidden style="grid-column:1/-1">
           <h3 data-i18n="contact.success.title">Vielen Dank.</h3>
           <p data-i18n="contact.success.body">Wir haben deine Nachricht erhalten und melden uns bald bei dir.</p>
@@ -67,6 +94,7 @@ import Base from '../layouts/Base.astro';
           <a class="val" href="https://instagram.com/treehouseyoga" target="_blank" rel="noopener">@treehouseyoga</a>
         </div>
       </div>
+    </div>
     </div>
   </section>
 </Base>

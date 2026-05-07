@@ -8,6 +8,7 @@ const featured = await getFeaturedRetreats();
 <Base
   title="Tree House Yoga Retreat — Small-group yoga retreats in Hikkaduwa, Sri Lanka"
   transparent={true}
+  heroImage="/assets/images_new/section_hero_images/main_hero.jpg"
 >
   <!-- ===== Hero ===== -->
   <section class="hero hero--immersive">
@@ -15,6 +16,7 @@ const featured = await getFeaturedRetreats();
       class="hero-bg"
       src="/assets/images_new/section_hero_images/main_hero.jpg"
       alt="Yoga retreat villa in Sri Lanka surrounded by jungle"
+      fetchpriority="high"
     />
 
     <div class="hero-overlay"></div>
@@ -24,7 +26,7 @@ const featured = await getFeaturedRetreats();
         <span class="hero-eyebrow" data-i18n="hero.eyebrow">hikkaduwa, sri lanka · retreats in kleinen gruppen</span>
         <h1 data-i18n="hero.title">Finde zurück zur Natur und zu dir selbst.</h1>
         <p class="sub" data-i18n="hero.sub">
-          Exklusive Yoga-Retreats für kleine Gruppen. Acht Gäste, sieben Nächte,
+          Exklusive Yoga-Retreats für kleine Gruppen. Zehn Gäste, zehn Nächte,
           eine Villa zwischen traumhaftem Strand und ruhigem Fluss.
         </p>
         <div class="hero-actions">
@@ -44,19 +46,19 @@ const featured = await getFeaturedRetreats();
     </div>
     <div class="concept-grid">
       <div class="concept-item">
-        <span class="num">08—10</span>
+        <span class="num">10</span>
         <h4 data-i18n="concept.a.h">Eine kleine Gruppe, mit Absicht</h4>
-        <p data-i18n="concept.a.b">Nie mehr als zehn Gäste. Der Kochtopf reicht für so viele, die Yoga-Sala auch — und die Woche funktioniert genau deshalb.</p>
+        <p data-i18n="concept.a.b">Unsere Retreats sind bewusst klein gehalten — nie mehr als zehn Gäste. Das schafft Raum für echte Begegnung, individuelle Begleitung und eine Atmosphäre, in der alle sich willkommen fühlen. Der Kochtopf reicht für so viele. Die Yoga-Shala auch.</p>
       </div>
       <div class="concept-item">
-        <span class="num">07</span>
-        <h4 data-i18n="concept.b.h">Sieben Nächte, eine Villa</h4>
-        <p data-i18n="concept.b.b">Ein Ort für das ganze Retreat. Ihr packt einmal aus. Ihr lernt, wie das Haus atmet.</p>
+        <span class="num">10</span>
+        <h4 data-i18n="concept.b.h">Zehn Tage, eine Villa — Gemeinschaft &amp; Privatsphäre</h4>
+        <p data-i18n="concept.b.b">Das gesamte Retreat findet in Iris' Villa in Hikkaduwa statt. Du packst einmal aus, kannst dich ganz einleben und bist Teil unserer Gemeinschaft — auf Wunsch im Einzel- oder Doppelzimmer. So lernst du das Haus kennen und erlebst, wie es atmet.</p>
       </div>
       <div class="concept-item">
         <span class="num">DE→LK</span>
         <h4 data-i18n="concept.c.h">Deutsche Gastgeber, srilankische Familie</h4>
-        <p data-i18n="concept.c.b">Organisiert aus Berlin, gehalten in Hikkaduwa von einer Familie, die seit 2014 für Retreats kocht.</p>
+        <p data-i18n="concept.c.b">Organisiert aus Berlin, gehalten und getragen von Iris, ihrer Familie und Freunden auf Sri Lanka. Ihr kommt als Gäste — und werdet Teil der Gemeinschaft.</p>
       </div>
     </div>
   </section>
@@ -66,35 +68,49 @@ const featured = await getFeaturedRetreats();
     <div class="container">
       <div class="section-head left">
         <span class="eyebrow" data-i18n="why.eyebrow">warum wir</span>
-        <h2 style="max-width:20ch" data-i18n="why.title">Die kleinen Dinge, sorgfältig gemacht.</h2>
+        <h2 style="max-width:20ch" data-i18n="why.title">Was unser Retreat besonders macht.</h2>
       </div>
       <div class="why-grid">
         <div class="why-item">
-          <svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 014 13V5a2 2 0 012-2h7a7 7 0 010 14h-2v3"/><path d="M5 3l7 7"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-7h6v7"/></svg>
           <div>
-            <h4 data-i18n="why.a.h">Ein echtes Sri Lanka</h4>
-            <p data-i18n="why.a.b">Unser Essen ist Reis und Curry, kein Resort-Buffet. Unsere Nachbarn sind die Fischer. Nichts ist gestellt.</p>
+            <h4 data-i18n="why.a.h">Familiengeführt</h4>
+            <p data-i18n="why.a.b">Ein echtes Familienprojekt — familiär geführt und mit viel Herz. Iris und Chantal unterrichten selbst, begleiten die Woche und kochen täglich für euch.</p>
           </div>
         </div>
         <div class="why-item">
           <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
           <div>
-            <h4 data-i18n="why.b.h">Klein und nah</h4>
-            <p data-i18n="why.b.b">Klein genug, dass man euch ab dem zweiten Morgen beim Namen kennt. Groß genug, damit ihr euch aufgehoben fühlt.</p>
+            <h4 data-i18n="why.b.h">Kleine Gruppen</h4>
+            <p data-i18n="why.b.b">Klein und inklusiv. Menschen jeden Alters und mit jeder Yoga-Erfahrung sind willkommen. Individuelle Unterstützung gehört für uns dazu.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg>
+          <div>
+            <h4 data-i18n="why.c.h">Gemeinschaft</h4>
+            <p data-i18n="why.c.b">Du wirst Teil unserer Gemeinschaft — nicht irgendein Gast in einem anonymen Resort.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/><circle cx="12" cy="12" r="10"/></svg>
+          <div>
+            <h4 data-i18n="why.d.h">All-inklusive</h4>
+            <p data-i18n="why.d.b">Essen und Unterkunft sind im Preis enthalten. Du kümmerst dich um nichts und kannst dich vollkommen auf Erholung und das Miteinander konzentrieren.</p>
           </div>
         </div>
         <div class="why-item">
           <svg viewBox="0 0 24 24"><path d="M2 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 17c2-2 4-2 6 0s4 2 6 0 4-2 6 0M2 7c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg>
           <div>
-            <h4 data-i18n="why.c.h">Zwischen traumhaftem Strand und ruhigem Fluss</h4>
-            <p data-i18n="why.c.b">Fünf Minuten zum Strand, zehn zum Riff, auf drei Seiten umgeben von Dschungel und Jasmin.</p>
+            <h4 data-i18n="why.e.h">Sri Lanka trifft Deutschland</h4>
+            <p data-i18n="why.e.b">Eine Villa nach deutschen Standards — und das authentische Sri Lanka durch lokales, singhalesisches Essen, das Iris täglich frisch mit regionalen Zutaten zubereitet.</p>
           </div>
         </div>
         <div class="why-item">
           <svg viewBox="0 0 24 24"><path d="M17.8 19.8L16 15l4-7c.5-1-1-2.5-2-2L11 10 6 8.2a1 1 0 00-1 .3L2 12l5 2 3 3 2 5 3.5-3a1 1 0 00.3-1z"/></svg>
           <div>
-            <h4 data-i18n="why.d.h">Alles organisiert</h4>
-            <p data-i18n="why.d.b">Flughafentransfer, Unterkunft, Essen, Yoga, all die kleinen Dinge. Ihr kommt an, ihr atmet.</p>
+            <h4 data-i18n="why.f.h">Ankommen &amp; Wohlfühlen</h4>
+            <p data-i18n="why.f.b">Ihr reist nach Colombo, werdet abgeholt — drei Stunden später sitzt ihr auf der Veranda und spürt, wie der Stress abfällt. Komm wie du bist, du bist genug.</p>
           </div>
         </div>
       </div>

@@ -6,9 +6,10 @@ import Base from '../layouts/Base.astro';
   description="Hikkaduwa on Sri Lanka's south coast — between reef, village, and jungle."
   active="location"
   transparent={true}
+  heroImage="/assets/images_new/section_hero_images/ort.jpg"
 >
   <section class="hero hero--page">
-    <img class="hero-bg" src="/assets/images_new/section_hero_images/ort.jpg" alt="Hikkaduwa an der Südwestküste Sri Lankas" />
+    <img class="hero-bg" src="/assets/images_new/section_hero_images/ort.jpg" alt="Hikkaduwa an der Südwestküste Sri Lankas" fetchpriority="high" />
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-card">
@@ -83,6 +84,139 @@ import Base from '../layouts/Base.astro';
       <figure><img src="/assets/die_villa_013.gif" alt="Schlafzimmer mit Moskitonetz und Balkon zur Lagune" loading="lazy" /></figure>
       <figure><img src="/assets/die_villa_016.gif" alt="Die Villa am Abend, vom See aus gesehen" loading="lazy" /></figure>
     </div>
+  </section>
+
+  <!-- ─── Room categories ─── -->
+  <section class="section container">
+    <div class="section-head left">
+      <span class="eyebrow" data-i18n="loc.rooms.eyebrow">zimmerkategorien</span>
+      <h2 data-i18n="loc.rooms.title">Welches Zimmer passt zu dir?</h2>
+      <p data-i18n="loc.rooms.body">Wir bieten verschiedene Zimmerkategorien an. Du kannst selbst entscheiden, welches Zimmer am besten zu dir passt — gerne beraten wir dich auch persönlich, damit wir gemeinsam das passende Zimmer für deine Bedürfnisse finden. Die Plätze sind bewusst begrenzt, um eine kleine, persönliche Gruppe und eine besondere Atmosphäre zu gewährleisten.</p>
+    </div>
+
+    <div class="room-grid">
+      <!-- Iris -->
+      <article class="room-card">
+        <div class="room-head">
+          <h3 class="room-name" data-i18n="loc.room.iris.name">Zimmer „Iris“</h3>
+          <p class="room-where" data-i18n="loc.room.iris.where">Im Haupthaus, 1. OG · Masterbedroom</p>
+        </div>
+        <ul class="room-specs">
+          <li data-i18n="loc.room.iris.bed">Doppelbett</li>
+          <li data-i18n="loc.room.iris.bath">Privates Bad mit Dusche &amp; WC</li>
+          <li data-i18n="loc.room.iris.view">Eigener Balkon, Seeblick</li>
+        </ul>
+        <p class="room-desc" data-i18n="loc.room.iris.desc">Für dich, wenn du dir viel Ruhe, Privatsphäre und einen besonderen Rückzugsort wünschst.</p>
+        <div class="room-prices">
+          <div class="price-row">
+            <span class="price-label" data-i18n="loc.rooms.solo">Einzelnutzung</span>
+            <span class="price-amount">4.500 €</span>
+          </div>
+          <div class="price-row">
+            <span class="price-label" data-i18n="loc.rooms.duo">Doppelnutzung (p. P.)</span>
+            <span class="price-amount">3.000 €</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Chantal -->
+      <article class="room-card">
+        <div class="room-head">
+          <h3 class="room-name" data-i18n="loc.room.chantal.name">Zimmer „Chantal“</h3>
+          <p class="room-where" data-i18n="loc.room.chantal.where">Im Haupthaus, 1. OG</p>
+        </div>
+        <ul class="room-specs">
+          <li data-i18n="loc.room.chantal.bed">Doppelbett</li>
+          <li data-i18n="loc.room.chantal.bath">Gemeinschaftsbad mit Dusche &amp; WC (geteilt mit Zimmer „Dulip“, max. 3 Personen)</li>
+          <li data-i18n="loc.room.chantal.view">Privater Balkon, Seeblick</li>
+        </ul>
+        <p class="room-desc" data-i18n="loc.room.chantal.desc">Helle, offene Atmosphäre mit viel Licht und Blick ins Grüne und auf den See.</p>
+        <div class="room-prices">
+          <div class="price-row">
+            <span class="price-label" data-i18n="loc.rooms.solo">Einzelnutzung</span>
+            <span class="price-amount">3.500 €</span>
+          </div>
+          <div class="price-row">
+            <span class="price-label" data-i18n="loc.rooms.duo">Doppelnutzung (p. P.)</span>
+            <span class="price-amount">2.800 €</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Dulip -->
+      <article class="room-card">
+        <div class="room-head">
+          <h3 class="room-name" data-i18n="loc.room.dulip.name">Zimmer „Dulip“</h3>
+          <p class="room-where" data-i18n="loc.room.dulip.where">Einzelzimmer im Haupthaus, 1. OG</p>
+        </div>
+        <ul class="room-specs">
+          <li data-i18n="loc.room.dulip.bed">Einzelbett</li>
+          <li data-i18n="loc.room.dulip.bath">Gemeinschaftsbad mit Dusche &amp; WC (geteilt mit Zimmer „Chantal“, max. 3 Personen)</li>
+          <li data-i18n="loc.room.dulip.view">Gartenblick</li>
+        </ul>
+        <p class="room-desc" data-i18n="loc.room.dulip.desc">Für dich, wenn du einen ruhigen Rückzugsort suchst.</p>
+        <div class="room-prices">
+          <div class="price-row">
+            <span class="price-label" data-i18n="loc.rooms.solo">Einzelnutzung</span>
+            <span class="price-amount">3.000 €</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Patricia -->
+      <article class="room-card">
+        <div class="room-head">
+          <h3 class="room-name" data-i18n="loc.room.patricia.name">Zimmer „Patricia“</h3>
+          <p class="room-where" data-i18n="loc.room.patricia.where">Im Baumhaus, Erdgeschoss</p>
+        </div>
+        <ul class="room-specs">
+          <li data-i18n="loc.room.patricia.bed">Zwei Einzelbetten</li>
+          <li data-i18n="loc.room.patricia.bath">Gemeinschaftsbad des Baumhauses mit Dusche &amp; WC</li>
+          <li data-i18n="loc.room.patricia.view">Seeblick &amp; Blick ins Grüne</li>
+        </ul>
+        <p class="room-desc" data-i18n="loc.room.patricia.desc">Offen, hell und mit Blick auf den See und ins Grüne — hochwertig ausgestattet, mitten in der Natur.</p>
+        <div class="room-prices">
+          <div class="price-row">
+            <span class="price-label" data-i18n="loc.rooms.solo">Einzelnutzung</span>
+            <span class="price-amount">3.500 €</span>
+          </div>
+          <div class="price-row">
+            <span class="price-label" data-i18n="loc.rooms.duo">Doppelnutzung (p. P.)</span>
+            <span class="price-amount">2.800 €</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Philipp -->
+      <article class="room-card">
+        <div class="room-head">
+          <h3 class="room-name" data-i18n="loc.room.philipp.name">Zimmer „Philipp“</h3>
+          <p class="room-where" data-i18n="loc.room.philipp.where">Im Baumhaus, 1. OG · auf der Galerie</p>
+        </div>
+        <ul class="room-specs">
+          <li data-i18n="loc.room.philipp.bed">Doppelbett auf der Galerie</li>
+          <li data-i18n="loc.room.philipp.bath">Gemeinschaftsbad des Baumhauses mit Dusche &amp; WC</li>
+          <li data-i18n="loc.room.philipp.view">Weiter Seeblick</li>
+        </ul>
+        <p class="room-desc" data-i18n="loc.room.philipp.desc">Das Baumhaus ist unser besonderes Highlight — offen, luftig und eingebettet in die Natur, mit weitem Blick über See und Grün.</p>
+        <div class="room-prices">
+          <div class="price-row">
+            <span class="price-label" data-i18n="loc.rooms.solo">Einzelnutzung</span>
+            <span class="price-amount">3.500 €</span>
+          </div>
+          <div class="price-row">
+            <span class="price-label" data-i18n="loc.rooms.duo">Doppelnutzung (p. P.)</span>
+            <span class="price-amount">2.800 €</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Whole-treehouse pricing as a separate emphasised note -->
+    <p class="room-treehouse-note">
+      <strong data-i18n="loc.rooms.treehouse.label">Gesamtes Baumhaus zur alleinigen Nutzung</strong>
+      <span class="price-amount">7.000 €</span>
+    </p>
   </section>
 
   <!-- ─── Day trips ─── -->
