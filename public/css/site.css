@@ -200,19 +200,19 @@ button { font-family: inherit; }
   left: 0;
   right: 0;
   top: 38%;
-  margin: 0 auto;
+  margin: 0;
   padding: 0 24px;
-  max-width: 1280px;
+  max-width: none;
   z-index: 2;
 }
 @media (min-width: 900px) {
   .hero--page .hero-content {
     top: 32%;
-    padding: 0 56px;
+    padding: 0 40px;
   }
 }
 .hero--page .hero-card { max-width: 760px; }
-.hero--page h1 { font-size: clamp(36px, 5vw, 60px); }
+.hero.hero--page h1 { font-size: clamp(30px, 3.6vw, 46px); }
 .hero--page p.sub { font-size: 17px; max-width: 56ch; }
 
 .hero-bg {

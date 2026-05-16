@@ -159,8 +159,8 @@ window.THYR_DICT = {
 
     // retreats page
     'retreats.eyebrow': 'the retreats',
-    'retreats.title': 'Two retreats a year. Held quietly.',
-    'retreats.body': 'We run two retreats a year and then we stop. A week in November, a longer one in February. Both in the same villa, with the same family cooking.',
+    'retreats.title': 'Yoga retreats throughout the year. Shaped with calm.',
+    'retreats.body': 'We offer several yoga retreats spread across the year — in small groups, at carefully chosen places, with plenty of room for rest, movement, and mindful pause. Each retreat has its own character, but all share the same quiet atmosphere, attentive practice, and warm organisation.',
 
     // retreats filter chips
     'filter.month': 'Month',
@@ -211,8 +211,8 @@ window.THYR_DICT = {
 
     // location
     'loc.eyebrow': 'hikkaduwa, sri lanka',
-    'loc.title': 'A village on the south coast, between reef and jungle.',
-    'loc.body': 'Hikkaduwa sits three hours south of Colombo, on Sri Lanka\u2019s south-west coast. It was a fishing village first, a surfing town second, and it still runs on that quiet rhythm.',
+    'loc.title': 'A village on the south-west coast, between reef and jungle.',
+    'loc.body': 'Hikkaduwa sits about two hours south of Colombo, on Sri Lanka\u2019s south-west coast. It was a fishing village first, a surfing town second, and it still runs on that quiet rhythm.',
     'loc.pin': 'hikkaduwa',
     'loc.a.h': 'Reef & surf',
     'loc.a.b': 'A protected coral reef five minutes by tuk-tuk. Gentle surf at Narigama; turtles most mornings.',
@@ -221,12 +221,12 @@ window.THYR_DICT = {
     'loc.c.h': 'Culture',
     'loc.c.b': 'Galle fort, 20 minutes south. A UNESCO old town with Dutch-era streets and the best breakfast on the coast.',
     'loc.d.h': 'Getting there',
-    'loc.d.b': 'Fly into Colombo (CMB). We meet you at arrivals; the transfer south takes three hours on the coast road.',
+    'loc.d.b': 'Fly into Colombo (CMB). We meet you at arrivals; the transfer south takes about two hours on the highway.',
 
     // location · the villa setting
     'loc.villa.eyebrow': 'the villa',
     'loc.villa.title': 'On Lake Nakanda, on 5,000 m\u00b2.',
-    'loc.villa.body': 'The villa sits on Lake Nakanda, ten minutes from the beach. A main house with three bedrooms, a separate tree house with views over the lagoon, a 14-metre pool with massage jets, and a garden of fruit and vegetables grown on site. Quiet \u2014 birds, no traffic.',
+    'loc.villa.body': 'The villa sits on Lake Nakanda, about twenty minutes\u2019 walk from the beach. A main house with three bedrooms, a separate tree house with views over the lagoon, a 14-metre pool with massage jets, and a garden of fruit and vegetables grown on site. Quiet \u2014 birds, no traffic.',
 
     // location · day trips
     'loc.trips.eyebrow': 'day trips',
@@ -269,7 +269,7 @@ window.THYR_DICT = {
     'loc.tip.visa.h': 'Visa',
     'loc.tip.visa.b': 'Get an electronic tourist visa (ETA) online at eta.gov.lk. Takes a few minutes \u2014 do it before you fly.',
     'loc.tip.transfer.h': 'Arrival & transfer',
-    'loc.tip.transfer.b': 'Land at Colombo (CMB), we pick you up. Three hours on the coast road, with a halfway stop.',
+    'loc.tip.transfer.b': 'Land at Colombo (CMB), we pick you up. About two hours on the highway, with a halfway stop.',
     'loc.tip.sim.h': 'SIM card',
     'loc.tip.sim.b': 'Dialog has the strongest signal in the south. Available at the airport or in Hikkaduwa \u2014 bring your passport. 25 GB for around 7 euros.',
     'loc.tip.cash.h': 'Cash & exchange',
@@ -640,8 +640,8 @@ window.THYR_DICT = {
     'r2.lede': 'Ein l\u00e4ngeres, stilleres Programm f\u00fcr wiederkehrende G\u00e4ste. L\u00e4ngere Morgen-Asana, eine Woche Stille von Mittwoch bis Freitag, und Raum, damit die Woche sich setzen kann.',
 
     'retreats.eyebrow': 'die retreats',
-    'retreats.title': 'Zwei Retreats im Jahr. Ruhig gehalten.',
-    'retreats.body': 'Wir machen zwei Retreats im Jahr \u2014 und dann h\u00f6ren wir auf. Eine Woche im November, eine l\u00e4ngere im Februar. Beide in derselben Villa, dieselbe Familie kocht.',
+    'retreats.title': 'Yoga Retreats das ganze Jahr \u00fcber. Mit Ruhe gestaltet.',
+    'retreats.body': 'Wir bieten \u00fcber das Jahr verteilt mehrere Yoga Retreats an \u2014 in kleinen Gruppen, an sorgf\u00e4ltig ausgew\u00e4hlten Orten und mit viel Raum f\u00fcr Erholung, Bewegung und bewusstes Innehalten. Jedes Retreat hat seinen eigenen Charakter, aber alle teilen dieselbe ruhige Atmosph\u00e4re, achtsame Praxis und liebevolle Organisation.',
 
     // retreats filter chips
     'filter.month': 'Monat',
@@ -689,8 +689,8 @@ window.THYR_DICT = {
     'itin.sat2.d': 'Sa', 'itin.sat2.h': 'Abreise', 'itin.sat2.b': 'Fr\u00fchst\u00fcck, Fahrt nach Colombo.',
 
     'loc.eyebrow': 'hikkaduwa, sri lanka',
-    'loc.title': 'Ein Dorf an der S\u00fcdk\u00fcste, zwischen Riff und Dschungel.',
-    'loc.body': 'Hikkaduwa liegt drei Stunden s\u00fcdlich von Colombo, an der S\u00fcdwestk\u00fcste Sri Lankas. Es war erst ein Fischerdorf, dann ein Surferort \u2014 und es l\u00e4uft noch immer in diesem ruhigen Takt.',
+    'loc.title': 'Ein Dorf an der S\u00fcdwestk\u00fcste, zwischen Riff und Dschungel.',
+    'loc.body': 'Hikkaduwa liegt etwa zwei Stunden s\u00fcdlich von Colombo, an der S\u00fcdwestk\u00fcste Sri Lankas. Es war erst ein Fischerdorf, dann ein Surferort \u2014 und es l\u00e4uft noch immer in diesem ruhigen Takt.',
     'loc.pin': 'hikkaduwa',
     'loc.a.h': 'Riff & Surf',
     'loc.a.b': 'Ein gesch\u00fctztes Korallenriff, f\u00fcnf Minuten mit dem Tuk-Tuk. Sanfte Wellen in Narigama; morgens oft Schildkr\u00f6ten.',
@@ -699,12 +699,12 @@ window.THYR_DICT = {
     'loc.c.h': 'Kultur',
     'loc.c.b': 'Galle Fort, 20 Minuten s\u00fcdlich. Eine UNESCO-Altstadt mit Stra\u00dfen aus der Holl\u00e4nderzeit \u2014 und dem besten Fr\u00fchst\u00fcck an der K\u00fcste.',
     'loc.d.h': 'Anreise',
-    'loc.d.b': 'Flug nach Colombo (CMB). Wir treffen euch in der Ankunftshalle; der Transfer in den S\u00fcden dauert drei Stunden \u00fcber die K\u00fcstenstra\u00dfe.',
+    'loc.d.b': 'Flug nach Colombo (CMB). Wir treffen euch in der Ankunftshalle; der Transfer in den S\u00fcden dauert ca. zwei Stunden \u00fcber die Autobahn.',
 
     // location · die villa
     'loc.villa.eyebrow': 'die villa',
     'loc.villa.title': 'Am Nakanda See, auf 5.000 m\u00b2.',
-    'loc.villa.body': 'Die Villa liegt direkt am Nakanda-See, etwa zehn Minuten vom Strand. Gro\u00dfes Hauptgeb\u00e4ude mit drei Schlafzimmern, ein abgelegenes Baumhaus mit Blick \u00fcber die Lagune, ein 14-Meter-Pool mit Massaged\u00fcsen, und ein Garten mit eigenem Obst und Gem\u00fcse. Ruhig \u2014 V\u00f6gel, kein Verkehr.',
+    'loc.villa.body': 'Die Villa liegt direkt am Nakanda-See, ca. zwanzig Minuten zu Fu\u00df vom Strand. Gro\u00dfes Hauptgeb\u00e4ude mit drei Schlafzimmern, ein abgelegenes Baumhaus mit Blick \u00fcber die Lagune, ein 14-Meter-Pool mit Massaged\u00fcsen, und ein Garten mit eigenem Obst und Gem\u00fcse. Ruhig \u2014 V\u00f6gel, kein Verkehr.',
 
     // location · tagesausfl\u00fcge
     'loc.trips.eyebrow': 'tagesausfl\u00fcge',
@@ -747,7 +747,7 @@ window.THYR_DICT = {
     'loc.tip.visa.h': 'Visum',
     'loc.tip.visa.b': 'Ein elektronisches Touristen-Visum (ETA) holt ihr online unter eta.gov.lk. Geht in wenigen Minuten, vor Abflug erledigen.',
     'loc.tip.transfer.h': 'Anreise & Transfer',
-    'loc.tip.transfer.b': 'Ankunft in Colombo (CMB), wir holen euch ab. Drei Stunden \u00fcber die K\u00fcstenstra\u00dfe, mit einem Stopp auf halber Strecke.',
+    'loc.tip.transfer.b': 'Ankunft in Colombo (CMB), wir holen euch ab. Ca. zwei Stunden \u00fcber die Autobahn, mit einem Stopp auf halber Strecke.',
     'loc.tip.sim.h': 'SIM-Karte',
     'loc.tip.sim.b': 'Dialog ist im S\u00fcden am st\u00e4rksten. Am Flughafen oder in Hikkaduwa erh\u00e4ltlich, Reisepass mitnehmen. 25 GB f\u00fcr etwa 7 Euro.',
     'loc.tip.cash.h': 'Bargeld & Wechsel',

@@ -104,7 +104,7 @@ const IMG = '/assets/images_new';
   <section class="section container">
     <div class="bio-block bio-block--rev">
       <figure class="bio-img img-painted img-painted--b">
-        <img src={`${IMG}/iris_chantal_together/iris_chantal_003.jpeg`} alt="Iris und Chantal gemeinsam im Dschungel" loading="lazy" />
+        <img src={`${IMG}/iris_chantal_together/iris_chantal_002.jpeg`} alt="Iris und Chantal gemeinsam im Dschungel" loading="lazy" />
       </figure>
       <div class="bio-prose">
         <span class="eyebrow" data-i18n="about.us.eyebrow">über uns</span>
@@ -151,7 +151,7 @@ const IMG = '/assets/images_new';
     <div class="container">
       <div class="bio-block">
         <figure class="bio-img bio-img--portrait img-painted img-painted--b">
-          <img src={`${IMG}/iris/iris_002.jpeg`} alt="Iris auf der Veranda am Nakanda See" loading="lazy" />
+          <img src={`${IMG}/iris/iris_005.jpeg`} alt="Iris auf der Veranda am Nakanda See" loading="lazy" />
         </figure>
         <div class="bio-prose">
           <span class="eyebrow" data-i18n="about.iris.eyebrow">über iris</span>
@@ -196,3 +196,22 @@ const IMG = '/assets/images_new';
     </div>
   </section>
 </Base>
+
+<style>
+  /* About page only: replace the painted/SVG mask on bio images with a soft
+     gradient fade on all four edges so the edges blend into the page. */
+  .img-painted img {
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+            mask-image:
+      linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%),
+      linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    -webkit-mask-composite: source-in;
+            mask-composite: intersect;
+    -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+  }
+</style>
